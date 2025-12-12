@@ -6,17 +6,10 @@ use Inertia\Inertia;
 
 class PageController extends Controller
 {
-    public function index()
+    public function show()
     {
-        return Inertia::render('Home', [
-            'title' => 'ANZMTT - Home'
-        ]);
-    }
-
-    public function about()
-    {
-        return Inertia::render('About', [
-            'title' => 'ANZMTT - About'
+        return Inertia::render('Page', [
+            'title' => request()->path()
         ]);
     }
 }
