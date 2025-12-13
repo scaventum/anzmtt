@@ -1,6 +1,6 @@
 import React from "react";
 import { Head } from "@inertiajs/react";
-import Navigation from "../Components/Navigation";
+import Navigation from "@components/Navigation";
 
 export default function Page({ title }) {
     const menu = [

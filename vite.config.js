@@ -5,7 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
     plugins: [
         laravel({
-            input: ["resources/css/app.css", "resources/js/app.js"],
+            input: ["resources/css/app.css", "resources/js/app.jsx"],
             refresh: true,
         }),
         tailwindcss(),
@@ -13,6 +13,12 @@ export default defineConfig({
     server: {
         watch: {
             ignored: ["**/storage/framework/views/**"],
+        },
+    },
+    resolve: {
+        alias: {
+            "@components": "/resources/js/components",
+            "@config": "/resources/js/config",
         },
     },
 });

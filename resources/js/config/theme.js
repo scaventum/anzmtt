@@ -1,23 +1,35 @@
-const anzmtt = {
-    colors: {
-        primary: "green-800", // Main text color for active/logo
-        primaryBg: "green-50", // Background for active items
-        primaryHover: "green-700", // Hover/focus color
-        text: "gray-700", // Default text color
-        bg: "white", // Default background
-        hoverBg: "gray-50", // Default hover background
+const emerald = {
+    text: {
+        primary: "text-emerald-800",
+        default: "text-gray-700",
+        hover: "hover:text-emerald-800",
+    },
+    bg: {
+        primary: "bg-emerald-50",
+        default: "bg-white",
+        hover: "hover:bg-emerald-50",
+        hoverDefault: "hover:bg-gray-50",
+    },
+    focus: {
+        primary: "focus:ring-emerald-700",
     },
 };
 
-const blue = {
-    colors: {
-        primary: "blue-800", // Main text color for active/logo
-        primaryBg: "blue-50", // Background for active items
-        primaryHover: "blue-700", // Hover/focus color
-        text: "gray-700", // Default text color
-        bg: "white", // Default background
-        hoverBg: "gray-50", // Default hover background
+const rose = {
+    text: {
+        primary: "text-rose-800",
+        default: "text-gray-700",
+        hover: "hover:text-rose-800",
+    },
+    bg: {
+        primary: "bg-rose-50",
+        default: "bg-white",
+        hover: "hover:bg-rose-50",
+        hoverDefault: "hover:bg-gray-50",
+    },
+    focus: {
+        primary: "focus:ring-rose-700",
     },
 };
 
-export const defaultTheme = anzmtt;
+export const defaultTheme = emerald;
