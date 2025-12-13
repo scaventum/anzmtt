@@ -1,7 +1,9 @@
 import React from "react";
 import { Head } from "@inertiajs/react";
 import Navigation from "@components/Navigation";
-import Header from "../Components/Header";
+import Header from "@components/Header";
+import Hero from "@components/Hero";
+import { defaultTheme } from "@/config/theme";
 
 export default function Page({
     meta,
@@ -10,12 +12,13 @@ export default function Page({
     breadcrumbs,
     showBreadcrumbs,
 }) {
-    const { title, subtitle } = data;
+    const { title, subtitle, hero } = data;
 
     return (
-        <div>
+        <div className={defaultTheme.fontFamily.body}>
             <Head title={meta.title} />
             <Navigation menu={navigationItems} />
+            {hero && <Hero {...hero} />}
             <Header
                 title={title}
                 subtitle={subtitle}

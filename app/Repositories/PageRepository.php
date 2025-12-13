@@ -13,13 +13,13 @@ class PageRepository
       'subtitle' => 'Aotearoa New Zealand Muslim Think Tank',
       'hero' => [
         'backgroundImage' => [
-          'src' => ''
+          'src' => null,
         ],
-        'title' => 'ANZMTT',
-        'Subtitle' => 'Aotearoa New Zealand Muslim Think Tank',
+        'title' => 'MAP 1',
+        'subtitle' => '1st Muslims in Asia-Pacific Conference 2025',
         'ctaLink' => [
-          'href' => '/about',
-          'label' => 'About'
+          'href' => '/conferences/map-1-2025',
+          'label' => 'Register'
         ]
       ],
       'sections' => [],

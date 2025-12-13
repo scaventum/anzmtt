@@ -13,6 +13,11 @@ const emerald = {
     focus: {
         primary: "focus:ring-emerald-700",
     },
+    fontFamily: {
+        heading: "font-serif",
+        body: "font-serif",
+        mono: "font-mono",
+    },
 };
 
 const rose = {
@@ -29,6 +34,11 @@ const rose = {
     },
     focus: {
         primary: "focus:ring-rose-700",
+    },
+    fontFamily: {
+        heading: "font-serif",
+        body: "font-serif",
+        mono: "font-mono",
     },
 };
 
