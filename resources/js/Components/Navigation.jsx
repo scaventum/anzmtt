@@ -4,14 +4,12 @@ import { Link, usePage } from "@inertiajs/react";
 export default function Navigation({ menu = [] }) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [openSubmenu, setOpenSubmenu] = useState(null);
+    const [hoveredSubmenu, setHoveredSubmenu] = useState(null);
     const { url } = usePage();
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
-    };
-
-    const toggleSubmenu = (index) => {
-        setOpenSubmenu(openSubmenu === index ? null : index);
+        setOpenSubmenu(null); // Close any open submenus
     };
 
     const isActive = (path) => {
@@ -25,25 +23,96 @@ export default function Navigation({ menu = [] }) {
 
     const renderMenuItem = (item, index, isMobile = false) => {
         if (item.submenu) {
+            if (isMobile) {
+                // Mobile behavior: click toggles submenu, second click navigates
+                return (
+                    <div key={index} className="space-y-1">
+                        <Link
+                            href={`/${item.path}`}
+                            onClick={(e) => {
+                                if (openSubmenu !== index) {
+                                    // First click - prevent navigation, open submenu
+                                    e.preventDefault();
+                                    setOpenSubmenu(index);
+                                }
+                                // Second click - let the link navigate normally
+                            }}
+                            className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
+                                hasActiveChild(item.submenu) ||
+                                isActive(`/${item.path}`)
+                                    ? "text-green-800 bg-green-50"
+                                    : "text-gray-700 hover:text-green-800 hover:bg-green-50"
+                            }`}
+                        >
+                            <div className="flex items-center justify-between">
+                                <span>{item.label}</span>
+                                <svg
+                                    className={`h-5 w-5 transition-transform duration-200 ${
+                                        openSubmenu === index
+                                            ? "rotate-180"
+                                            : ""
+                                    }`}
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M19 9l-7 7-7-7"
+                                    />
+                                </svg>
+                            </div>
+                        </Link>
+
+                        {openSubmenu === index && (
+                            <div className="ml-4 space-y-1 border-l border-gray-200 pl-2">
+                                {item.submenu.map((subItem, subIndex) => (
+                                    <Link
+                                        key={subIndex}
+                                        href={`/${subItem.path}`}
+                                        className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
+                                            isActive(`/${subItem.path}`)
+                                                ? "text-green-800 bg-green-50"
+                                                : "text-gray-700 hover:text-green-800 hover:bg-green-50"
+                                        }`}
+                                        onClick={() => {
+                                            setIsMobileMenuOpen(false);
+                                            setOpenSubmenu(null);
+                                        }}
+                                    >
+                                        {subItem.label}
+                                    </Link>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                );
+            }
+
+            // Desktop behavior: hover to show dropdown, click goes to link
+            // FIXED: Entire parent item (text + arrow) is wrapped in Link
             return (
                 <div
                     key={index}
-                    className={isMobile ? "space-y-1" : "relative"}
+                    className="relative"
+                    onMouseEnter={() => setHoveredSubmenu(index)}
+                    onMouseLeave={() => setHoveredSubmenu(null)}
                 >
-                    <button
-                        onClick={() => toggleSubmenu(index)}
-                        className={`flex items-center justify-between w-full px-3 py-2 rounded-md ${
-                            isMobile ? "text-base" : "text-sm"
-                        } font-medium transition-colors duration-200 ${
-                            hasActiveChild(item.submenu)
+                    <Link
+                        href={`/${item.path}`}
+                        className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                            hasActiveChild(item.submenu) ||
+                            isActive(`/${item.path}`)
                                 ? "text-green-800 bg-green-50"
                                 : "text-gray-700 hover:text-green-800 hover:bg-green-50"
                         }`}
                     >
-                        {item.label}
+                        <span>{item.label}</span>
                         <svg
                             className={`ml-1 h-4 w-4 transition-transform duration-200 ${
-                                openSubmenu === index ? "rotate-180" : ""
+                                hoveredSubmenu === index ? "rotate-180" : ""
                             }`}
                             fill="none"
                             viewBox="0 0 24 24"
@@ -56,32 +125,20 @@ export default function Navigation({ menu = [] }) {
                                 d="M19 9l-7 7-7-7"
                             />
                         </svg>
-                    </button>
+                    </Link>
 
-                    {openSubmenu === index && (
-                        <div
-                            className={`${
-                                isMobile
-                                    ? "ml-4 space-y-1 border-l border-gray-200 pl-2"
-                                    : "absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 border border-gray-100"
-                            }`}
-                        >
+                    {hoveredSubmenu === index && (
+                        <div className="absolute left-0 mt-1 w-48 bg-white rounded-md shadow-lg py-1 z-10 border border-gray-100">
                             {item.submenu.map((subItem, subIndex) => (
                                 <Link
                                     key={subIndex}
                                     href={`/${subItem.path}`}
-                                    className={`block px-4 py-2 ${
-                                        isMobile ? "text-base" : "text-sm"
-                                    } ${
+                                    className={`block px-4 py-2 text-sm ${
                                         isActive(`/${subItem.path}`)
                                             ? "text-green-800 bg-green-50"
                                             : "text-gray-700 hover:text-green-800 hover:bg-green-50"
                                     }`}
-                                    onClick={() => {
-                                        if (isMobile)
-                                            setIsMobileMenuOpen(false);
-                                        setOpenSubmenu(null);
-                                    }}
+                                    onClick={() => setHoveredSubmenu(null)}
                                 >
                                     {subItem.label}
                                 </Link>
@@ -92,6 +149,7 @@ export default function Navigation({ menu = [] }) {
             );
         }
 
+        // Regular menu item (no submenu)
         return (
             <Link
                 key={index}
@@ -184,14 +242,6 @@ export default function Navigation({ menu = [] }) {
                     )}
                 </div>
             </div>
-
-            {/* Close dropdown when clicking outside (for desktop) */}
-            {openSubmenu !== null && (
-                <div
-                    className="fixed inset-0 z-0"
-                    onClick={() => setOpenSubmenu(null)}
-                />
-            )}
         </nav>
     );
 }
