@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link, usePage } from "@inertiajs/react";
+import { theme } from "../config";
 
-export default function Navigation({ menu = [] }) {
+export default function Navigation({ menu = [], themeConfig = theme }) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [openSubmenu, setOpenSubmenu] = useState(null);
     const [hoveredSubmenu, setHoveredSubmenu] = useState(null);
@@ -9,7 +10,7 @@ export default function Navigation({ menu = [] }) {
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
-        setOpenSubmenu(null); // Close any open submenus
+        setOpenSubmenu(null);
     };
 
     const isActive = (path) => {
@@ -23,25 +24,24 @@ export default function Navigation({ menu = [] }) {
 
     const renderMenuItem = (item, index, isMobile = false) => {
         if (item.submenu) {
+            const isActiveItem =
+                hasActiveChild(item.submenu) || isActive(`/${item.path}`);
+
             if (isMobile) {
-                // Mobile behavior: click toggles submenu, second click navigates
                 return (
                     <div key={index} className="space-y-1">
                         <Link
                             href={`/${item.path}`}
                             onClick={(e) => {
                                 if (openSubmenu !== index) {
-                                    // First click - prevent navigation, open submenu
                                     e.preventDefault();
                                     setOpenSubmenu(index);
                                 }
-                                // Second click - let the link navigate normally
                             }}
                             className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
-                                hasActiveChild(item.submenu) ||
-                                isActive(`/${item.path}`)
-                                    ? "text-green-800 bg-green-50"
-                                    : "text-gray-700 hover:text-green-800 hover:bg-green-50"
+                                isActiveItem
+                                    ? `${themeConfig.colors.primary.text} ${themeConfig.colors.primary.bg}`
+                                    : `text-gray-700 ${themeConfig.colors.primary.hover.text} ${themeConfig.colors.primary.hover.bg}`
                             }`}
                         >
                             <div className="flex items-center justify-between">
@@ -68,31 +68,36 @@ export default function Navigation({ menu = [] }) {
 
                         {openSubmenu === index && (
                             <div className="ml-4 space-y-1 border-l border-gray-200 pl-2">
-                                {item.submenu.map((subItem, subIndex) => (
-                                    <Link
-                                        key={subIndex}
-                                        href={`/${subItem.path}`}
-                                        className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
-                                            isActive(`/${subItem.path}`)
-                                                ? "text-green-800 bg-green-50"
-                                                : "text-gray-700 hover:text-green-800 hover:bg-green-50"
-                                        }`}
-                                        onClick={() => {
-                                            setIsMobileMenuOpen(false);
-                                            setOpenSubmenu(null);
-                                        }}
-                                    >
-                                        {subItem.label}
-                                    </Link>
-                                ))}
+                                {item.submenu.map((subItem, subIndex) => {
+                                    const isSubActive = isActive(
+                                        `/${subItem.path}`
+                                    );
+
+                                    return (
+                                        <Link
+                                            key={subIndex}
+                                            href={`/${subItem.path}`}
+                                            className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
+                                                isSubActive
+                                                    ? `${themeConfig.colors.primary.text} ${themeConfig.colors.primary.bg}`
+                                                    : `text-gray-700 ${themeConfig.colors.primary.hover.text} ${themeConfig.colors.primary.hover.bg}`
+                                            }`}
+                                            onClick={() => {
+                                                setIsMobileMenuOpen(false);
+                                                setOpenSubmenu(null);
+                                            }}
+                                        >
+                                            {subItem.label}
+                                        </Link>
+                                    );
+                                })}
                             </div>
                         )}
                     </div>
                 );
             }
 
-            // Desktop behavior: hover to show dropdown, click goes to link
-            // FIXED: Entire parent item (text + arrow) is wrapped in Link
+            // Desktop
             return (
                 <div
                     key={index}
@@ -103,10 +108,9 @@ export default function Navigation({ menu = [] }) {
                     <Link
                         href={`/${item.path}`}
                         className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                            hasActiveChild(item.submenu) ||
-                            isActive(`/${item.path}`)
-                                ? "text-green-800 bg-green-50"
-                                : "text-gray-700 hover:text-green-800 hover:bg-green-50"
+                            isActiveItem
+                                ? `${themeConfig.colors.primary.text} ${themeConfig.colors.primary.bg}`
+                                : `text-gray-700 ${themeConfig.colors.primary.hover.text} ${themeConfig.colors.primary.hover.bg}`
                         }`}
                     >
                         <span>{item.label}</span>
@@ -129,27 +133,35 @@ export default function Navigation({ menu = [] }) {
 
                     {hoveredSubmenu === index && (
                         <div className="absolute left-0 mt-1 w-48 bg-white rounded-md shadow-lg py-1 z-10 border border-gray-100">
-                            {item.submenu.map((subItem, subIndex) => (
-                                <Link
-                                    key={subIndex}
-                                    href={`/${subItem.path}`}
-                                    className={`block px-4 py-2 text-sm ${
-                                        isActive(`/${subItem.path}`)
-                                            ? "text-green-800 bg-green-50"
-                                            : "text-gray-700 hover:text-green-800 hover:bg-green-50"
-                                    }`}
-                                    onClick={() => setHoveredSubmenu(null)}
-                                >
-                                    {subItem.label}
-                                </Link>
-                            ))}
+                            {item.submenu.map((subItem, subIndex) => {
+                                const isSubActive = isActive(
+                                    `/${subItem.path}`
+                                );
+
+                                return (
+                                    <Link
+                                        key={subIndex}
+                                        href={`/${subItem.path}`}
+                                        className={`block px-4 py-2 text-sm ${
+                                            isSubActive
+                                                ? `${themeConfig.colors.primary.text} ${themeConfig.colors.primary.bg}`
+                                                : `text-gray-700 ${themeConfig.colors.primary.hover.text} ${themeConfig.colors.primary.hover.bg}`
+                                        }`}
+                                        onClick={() => setHoveredSubmenu(null)}
+                                    >
+                                        {subItem.label}
+                                    </Link>
+                                );
+                            })}
                         </div>
                     )}
                 </div>
             );
         }
 
-        // Regular menu item (no submenu)
+        // Regular menu item
+        const isActiveItem = isActive(`/${item.path}`);
+
         return (
             <Link
                 key={index}
@@ -157,9 +169,9 @@ export default function Navigation({ menu = [] }) {
                 className={`${
                     isMobile ? "block px-3 py-2 text-base" : "px-3 py-2 text-sm"
                 } font-medium rounded-md transition-colors duration-200 ${
-                    isActive(`/${item.path}`)
-                        ? "text-green-800 bg-green-50"
-                        : "text-gray-700 hover:text-green-800 hover:bg-green-50"
+                    isActiveItem
+                        ? `${themeConfig.colors.primary.text} ${themeConfig.colors.primary.bg}`
+                        : `text-gray-700 ${themeConfig.colors.primary.hover.text} ${themeConfig.colors.primary.hover.bg}`
                 }`}
                 onClick={() => isMobile && setIsMobileMenuOpen(false)}
             >
@@ -176,7 +188,7 @@ export default function Navigation({ menu = [] }) {
                     <div className="flex items-center">
                         <Link
                             href="/"
-                            className="text-xl font-bold text-green-800"
+                            className={`text-xl font-bold ${themeConfig.colors.primary.logo}`}
                         >
                             ANZMTT
                         </Link>
@@ -193,7 +205,7 @@ export default function Navigation({ menu = [] }) {
                     <div className="md:hidden flex items-center">
                         <button
                             onClick={toggleMobileMenu}
-                            className="text-gray-700 hover:text-green-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-700 p-2 rounded-md"
+                            className={`text-gray-700 ${themeConfig.colors.primary.hover.text} focus:outline-none focus:ring-2 focus:ring-inset ${themeConfig.colors.primary.focus} p-2 rounded-md`}
                             aria-expanded={isMobileMenuOpen}
                             aria-label="Toggle menu"
                         >
