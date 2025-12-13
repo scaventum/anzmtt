@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Page;
+use Illuminate\Support\Collection;
 
 class NavigationRepository
 {
@@ -98,5 +98,39 @@ class NavigationRepository
   {
     // @temp: get items from actual CMS
     return static::ITEMS;
+  }
+
+  public function composeBreadcrumbBySlug(string $slug): Collection
+  {
+    $breadcrumbs = collect();
+
+    // Exit early on home
+    if ($slug === '/') {
+      return $breadcrumbs;
+    }
+
+    // Separate slug by segments
+    $segments = explode('/', $slug);
+
+    $currentSlug = '';
+
+    foreach ($segments as $segment) {
+      // Join current segment with previous segment
+      $currentSlug .= $segment ? "/{$segment}" : '';
+
+      // Human readable breadcrumb label
+      $label = $segment ? ucwords(str_replace('-', ' ', $segment)) : 'Home';
+
+      // Skip current page from being a link
+      $isLast = $currentSlug === "/{$slug}";
+
+      // add breadcrumb to collection
+      $breadcrumbs->add((object)[
+        'label' => $label,
+        'href' => $isLast ? null : $currentSlug ??  '/',
+      ]);
+    }
+
+    return $breadcrumbs;
   }
 }

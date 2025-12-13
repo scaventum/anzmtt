@@ -9,38 +9,39 @@ class PageRepository
   // @temp: get items from actual CMS
   const DATA = [
     '/' => [
-      'title' => 'Home',
-      'sections' => [
-        [
-          'type' => 'hero',
-          'backgroundImage' => [
-            'src' => ''
-          ],
-          'title' => 'ANZMTT',
-          'Subtitle' => 'Aotearoa New Zealand Muslim Think Tank',
-          'ctaLink' => [
-            'href' => '/about',
-            'label' => 'About'
-          ]
+      'title' => 'ANZMTT',
+      'subtitle' => 'Aotearoa New Zealand Muslim Think Tank',
+      'hero' => [
+        'backgroundImage' => [
+          'src' => ''
+        ],
+        'title' => 'ANZMTT',
+        'Subtitle' => 'Aotearoa New Zealand Muslim Think Tank',
+        'ctaLink' => [
+          'href' => '/about',
+          'label' => 'About'
         ]
-      ]
+      ],
+      'sections' => [],
     ],
     'about' => [
       'title' => 'About',
     ],
     'about/faq' => [
       'title' => 'FAQ',
+      'subtitle' => 'Frequently Asked Questions',
     ],
     'conferences/map-1-2025' => [
       'title' => 'MAP 1 (2025)',
+      'subtitle' => '1st Muslims in Asia-Pacific Conference 2025',
     ]
   ];
 
-  public function findBySlug(string $slug): object
+  public function getPageDataBySlug(string $slug): object
   {
     // @temp: get items from actual CMS
     return json_decode(
-      json_encode(static::DATA[$slug] ?? [
+      json_encode($this->checkPageFoundBySlug($slug) ? static::DATA[$slug] : [
         'title' => 'Not found',
         'sections' => [
           [
@@ -50,5 +51,11 @@ class PageRepository
         ]
       ])
     );
+  }
+
+  public function checkPageFoundBySlug(string $slug): bool
+  {
+    // @temp: get items from actual CMS
+    return isset(static::DATA[$slug]);
   }
 }

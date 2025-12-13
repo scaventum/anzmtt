@@ -2,8 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Models\Page;
-
 class MetaRepository
 {
   public function composeByPageData(object $pageData): object

@@ -27,21 +27,29 @@ class PageController extends Controller
 
     public function show()
     {
-        $path = request()->path();
+        $slug = request()->path();
 
         // Get navigation items
         $navigationItems = $this->navigationRepository->getItems();
 
-        // Find page data by slug
-        $pageData = $this->pageRepository->findBySlug($path);
+        // Compose breadcrumbs by slug
+        $breadcrumbs = $this->navigationRepository->composeBreadcrumbBySlug($slug);
+
+        // Get page data by slug
+        $pageData = $this->pageRepository->getPageDataBySlug($slug);
 
         // Compose meta data by page data
         $meta = $this->metaRepository->composeByPageData($pageData);
+
+        // Hide breadcrumbs if page not found
+        $showBreadcrumbs = $this->pageRepository->checkPageFoundBySlug($slug);
 
         return Inertia::render('Page', [
             'meta' => $meta,
             'data' => $pageData,
             'navigationItems' => $navigationItems,
+            'breadcrumbs' => $breadcrumbs,
+            'showBreadcrumbs' => $showBreadcrumbs,
         ]);
     }
 }
