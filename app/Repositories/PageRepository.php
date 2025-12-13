@@ -9,7 +9,7 @@ class PageRepository
   // @temp: get items from actual CMS
   const DATA = [
     '/' => [
-      'title' => 'ANZMTT',
+      'title' => 'Home',
       'subtitle' => 'Aotearoa New Zealand Muslim Think Tank',
       'hero' => [
         'backgroundImage' => [
@@ -22,7 +22,12 @@ class PageRepository
           'label' => 'Register'
         ]
       ],
-      'sections' => [],
+      'sections' => [
+        [
+          'type' => 'profile',
+          'body' => 'ANZMTT profile here.'
+        ]
+      ],
     ],
     'about' => [
       'title' => 'About',
@@ -46,7 +51,7 @@ class PageRepository
         'sections' => [
           [
             'type' => 'error',
-            'message' => '404 - Not found'
+            'body' => '404 - Not found'
           ]
         ]
       ])

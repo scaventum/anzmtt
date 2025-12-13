@@ -1,8 +1,9 @@
 import React from "react";
 import { Head } from "@inertiajs/react";
-import Navigation from "@components/Navigation";
 import Header from "@components/Header";
 import Hero from "@components/Hero";
+import Navigation from "@components/Navigation";
+import Footer from "@components/Footer";
 import { defaultTheme } from "@/config/theme";
 
 export default function Page({
@@ -12,12 +13,14 @@ export default function Page({
     breadcrumbs,
     showBreadcrumbs,
 }) {
-    const { title, subtitle, hero } = data;
+    const { title, subtitle, hero, sections } = data;
 
     return (
-        <div className={defaultTheme.fontFamily.body}>
+        <div
+            className={`flex flex-col min-h-screen ${defaultTheme.fontFamily.body}`}
+        >
             <Head title={meta.title} />
-            <Navigation menu={navigationItems} />
+            <Navigation menu={navigationItems} meta={meta} />
             {hero && <Hero {...hero} />}
             <Header
                 title={title}
@@ -25,6 +28,15 @@ export default function Page({
                 breadcrumbs={breadcrumbs}
                 showBreadcrumbs={showBreadcrumbs}
             />
+            <div className="flex-grow">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                    {sections &&
+                        sections.map((item, index) => (
+                            <p key={index}>{JSON.stringify(item)}</p>
+                        ))}
+                </div>
+            </div>
+            <Footer menu={navigationItems} meta={meta} />
         </div>
     );
 }

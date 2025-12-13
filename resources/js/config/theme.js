@@ -2,6 +2,8 @@ const emerald = {
     text: {
         primary: "text-emerald-800",
         default: "text-gray-700",
+        light: "text-gray-100",
+        disabled: "text-gray-400",
         hover: "hover:text-emerald-800",
     },
     bg: {
@@ -24,6 +26,8 @@ const rose = {
     text: {
         primary: "text-rose-800",
         default: "text-gray-700",
+        light: "text-gray-100",
+        disabled: "text-gray-400",
         hover: "hover:text-rose-800",
     },
     bg: {

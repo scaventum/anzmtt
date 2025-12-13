@@ -2,11 +2,17 @@ import React, { useState } from "react";
 import { Link, usePage } from "@inertiajs/react";
 import { defaultTheme } from "@config/theme";
 
-export default function Navigation({ menu = [], theme = defaultTheme }) {
+export default function Navigation({
+    menu = [],
+    meta = null,
+    theme = defaultTheme,
+}) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [openSubmenu, setOpenSubmenu] = useState(null);
     const [hoveredSubmenu, setHoveredSubmenu] = useState(null);
     const { url } = usePage();
+
+    const { navTitle, navSubtitle } = meta;
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -186,12 +192,15 @@ export default function Navigation({ menu = [], theme = defaultTheme }) {
                 <div className="flex justify-between h-16">
                     {/* Logo */}
                     <div className="flex items-center">
-                        <Link
-                            href="/"
-                            className={`text-xl font-bold ${theme.text.primary}`}
-                        >
-                            ANZMTT
-                        </Link>
+                        <div className="">
+                            <Link
+                                href="/"
+                                className={`text-xl font-bold ${theme.text.primary}`}
+                            >
+                                {navTitle}
+                            </Link>
+                            <div className="text-xs">{navSubtitle}</div>
+                        </div>
                     </div>
 
                     {/* Desktop Navigation */}
