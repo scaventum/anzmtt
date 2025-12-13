@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link, usePage } from "@inertiajs/react";
-import { theme } from "../config";
+import { defaultTheme } from "../config/theme";
 
-export default function Navigation({ menu = [], themeConfig = theme }) {
+export default function Navigation({ menu = [], theme = defaultTheme }) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [openSubmenu, setOpenSubmenu] = useState(null);
     const [hoveredSubmenu, setHoveredSubmenu] = useState(null);
@@ -40,8 +40,8 @@ export default function Navigation({ menu = [], themeConfig = theme }) {
                             }}
                             className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
                                 isActiveItem
-                                    ? `${themeConfig.colors.primary.text} ${themeConfig.colors.primary.bg}`
-                                    : `text-gray-700 ${themeConfig.colors.primary.hover.text} ${themeConfig.colors.primary.hover.bg}`
+                                    ? `text-${theme.colors.primary} bg-${theme.colors.primaryBg}`
+                                    : `text-${theme.colors.text} hover:text-${theme.colors.primary} hover:bg-${theme.colors.primaryBg}`
                             }`}
                         >
                             <div className="flex items-center justify-between">
@@ -79,8 +79,8 @@ export default function Navigation({ menu = [], themeConfig = theme }) {
                                             href={`/${subItem.path}`}
                                             className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
                                                 isSubActive
-                                                    ? `${themeConfig.colors.primary.text} ${themeConfig.colors.primary.bg}`
-                                                    : `text-gray-700 ${themeConfig.colors.primary.hover.text} ${themeConfig.colors.primary.hover.bg}`
+                                                    ? `text-${theme.colors.primary} bg-${theme.colors.primaryBg}`
+                                                    : `text-${theme.colors.text} hover:text-${theme.colors.primary} hover:bg-${theme.colors.primaryBg}`
                                             }`}
                                             onClick={() => {
                                                 setIsMobileMenuOpen(false);
@@ -109,8 +109,8 @@ export default function Navigation({ menu = [], themeConfig = theme }) {
                         href={`/${item.path}`}
                         className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                             isActiveItem
-                                ? `${themeConfig.colors.primary.text} ${themeConfig.colors.primary.bg}`
-                                : `text-gray-700 ${themeConfig.colors.primary.hover.text} ${themeConfig.colors.primary.hover.bg}`
+                                ? `text-${theme.colors.primary} bg-${theme.colors.primaryBg}`
+                                : `text-${theme.colors.text} hover:text-${theme.colors.primary} hover:bg-${theme.colors.primaryBg}`
                         }`}
                     >
                         <span>{item.label}</span>
@@ -144,8 +144,8 @@ export default function Navigation({ menu = [], themeConfig = theme }) {
                                         href={`/${subItem.path}`}
                                         className={`block px-4 py-2 text-sm ${
                                             isSubActive
-                                                ? `${themeConfig.colors.primary.text} ${themeConfig.colors.primary.bg}`
-                                                : `text-gray-700 ${themeConfig.colors.primary.hover.text} ${themeConfig.colors.primary.hover.bg}`
+                                                ? `text-${theme.colors.primary} bg-${theme.colors.primaryBg}`
+                                                : `text-${theme.colors.text} hover:text-${theme.colors.primary} hover:bg-${theme.colors.primaryBg}`
                                         }`}
                                         onClick={() => setHoveredSubmenu(null)}
                                     >
@@ -170,8 +170,8 @@ export default function Navigation({ menu = [], themeConfig = theme }) {
                     isMobile ? "block px-3 py-2 text-base" : "px-3 py-2 text-sm"
                 } font-medium rounded-md transition-colors duration-200 ${
                     isActiveItem
-                        ? `${themeConfig.colors.primary.text} ${themeConfig.colors.primary.bg}`
-                        : `text-gray-700 ${themeConfig.colors.primary.hover.text} ${themeConfig.colors.primary.hover.bg}`
+                        ? `text-${theme.colors.primary} bg-${theme.colors.primaryBg}`
+                        : `text-${theme.colors.text} hover:text-${theme.colors.primary} hover:bg-${theme.colors.primaryBg}`
                 }`}
                 onClick={() => isMobile && setIsMobileMenuOpen(false)}
             >
@@ -181,14 +181,14 @@ export default function Navigation({ menu = [], themeConfig = theme }) {
     };
 
     return (
-        <nav className="bg-white shadow-lg">
+        <nav className={`bg-${theme.colors.bg} shadow-lg`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16">
                     {/* Logo */}
                     <div className="flex items-center">
                         <Link
                             href="/"
-                            className={`text-xl font-bold ${themeConfig.colors.primary.logo}`}
+                            className={`text-xl font-bold text-${theme.colors.primary}`}
                         >
                             ANZMTT
                         </Link>
@@ -205,7 +205,7 @@ export default function Navigation({ menu = [], themeConfig = theme }) {
                     <div className="md:hidden flex items-center">
                         <button
                             onClick={toggleMobileMenu}
-                            className={`text-gray-700 ${themeConfig.colors.primary.hover.text} focus:outline-none focus:ring-2 focus:ring-inset ${themeConfig.colors.primary.focus} p-2 rounded-md`}
+                            className={`text-${theme.colors.text} hover:text-${theme.colors.primary} focus:outline-none focus:ring-2 focus:ring-inset focus:ring-${theme.colors.primaryHover} p-2 rounded-md`}
                             aria-expanded={isMobileMenuOpen}
                             aria-label="Toggle menu"
                         >
