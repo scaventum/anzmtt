@@ -3,4 +3,13 @@
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/{any}', [PageController::class, 'show'])->where('any', '.*');
+// Preview routes
+Route::middleware(['auth'])->group(function () {
+  Route::get('/preview/{page}', [PageController::class, 'show'])
+    ->name('page.preview');
+});
+
+// Public page route
+Route::get('/{page}', [PageController::class, 'show'])
+  ->where('page', '.*')
+  ->name('page.show');
