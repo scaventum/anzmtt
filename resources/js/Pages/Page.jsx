@@ -13,7 +13,7 @@ export default function Page({
     breadcrumbs,
     showBreadcrumbs,
 }) {
-    const { title, subtitle, hero, sections } = data;
+    const { title, subtitle, hero, blocks } = data;
 
     return (
         <div
@@ -30,8 +30,8 @@ export default function Page({
             />
             <div className="flex-grow">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                    {sections &&
-                        sections.map((item, index) => (
+                    {blocks &&
+                        blocks.map((item, index) => (
                             <p key={index}>{JSON.stringify(item)}</p>
                         ))}
                 </div>

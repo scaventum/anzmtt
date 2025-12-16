@@ -22,7 +22,7 @@ class PageRepository
           'label' => 'Register'
         ]
       ],
-      'sections' => [
+      'blocks' => [
         [
           'type' => 'profile',
           'body' => 'ANZMTT profile here.'
@@ -45,17 +45,19 @@ class PageRepository
   public function getPageDataBySlug(string $slug): object
   {
     // @temp: get items from actual CMS
-    return json_decode(
-      json_encode($this->checkPageFoundBySlug($slug) ? static::DATA[$slug] : [
-        'title' => 'Not found',
-        'sections' => [
-          [
-            'type' => 'error',
-            'body' => '404 - Not found'
-          ]
-        ]
-      ])
-    );
+    $page = Page::whereSlug($slug)->first();
+
+    $pageData = $page?->toArray() ?? [
+      'title' => 'Not found',
+      'blocks' => [
+        [
+          'type' => 'error',
+          'body' => '404 - Not found'
+        ],
+      ],
+    ];
+
+    return json_decode(json_encode($pageData));
   }
 
   public function checkPageFoundBySlug(string $slug): bool

@@ -15,21 +15,20 @@ export default function Hero({
 
     return (
         <div
-            className={`relative ${
+            className={`relative min-h-[500px] ${
                 !hasBackgroundImage && fallbackBackground
                     ? theme.bg.primary
                     : ""
             }`}
         >
-            {/* Background Image */}
             {hasBackgroundImage && (
                 <div className="absolute inset-0 z-0">
                     <img
-                        src={backgroundImage.src}
-                        alt={backgroundImage.alt || title}
+                        src={`storage/${backgroundImage.src}`}
+                        alt={title}
                         className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+                    <div className="absolute inset-0 bg-black/40"></div>
                 </div>
             )}
 
