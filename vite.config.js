@@ -17,6 +17,7 @@ export default defineConfig({
     },
     resolve: {
         alias: {
+            "@blocks": "/resources/js/blocks",
             "@layouts": "/resources/js/layouts",
             "@components": "/resources/js/components",
             "@config": "/resources/js/config",

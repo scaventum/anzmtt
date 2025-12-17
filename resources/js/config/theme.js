@@ -7,9 +7,9 @@ const emerald = {
         hover: "hover:text-emerald-800",
     },
     bg: {
-        primary: "bg-emerald-50",
+        primary: "bg-emerald-800",
         default: "bg-white",
-        hover: "hover:bg-emerald-50",
+        hover: "hover:bg-emerald-500",
         hoverDefault: "hover:bg-gray-50",
     },
     focus: {
@@ -31,9 +31,9 @@ const rose = {
         hover: "hover:text-rose-800",
     },
     bg: {
-        primary: "bg-rose-50",
+        primary: "bg-rose-800",
         default: "bg-white",
-        hover: "hover:bg-rose-50",
+        hover: "hover:bg-rose-500",
         hoverDefault: "hover:bg-gray-50",
     },
     focus: {

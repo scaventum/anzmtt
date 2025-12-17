@@ -1,11 +1,8 @@
 import React from "react";
-import { Head } from "@inertiajs/react";
-import Header from "@components/Header";
-import Hero from "@components/Hero";
-import Navigation from "@components/Navigation";
-import Footer from "@components/Footer";
-import { defaultTheme } from "@/config/theme";
 import Layout from "@layouts/Layout";
+import ParagraphBlock from "@blocks/ParagraphBlock";
+import UnorderedListBlock from "@blocks/UnorderedListBlock";
+import Block from "../blocks/Block";
 
 export default function Page({
     meta,
@@ -25,9 +22,7 @@ export default function Page({
             showBreadcrumbs={showBreadcrumbs}
         >
             {blocks &&
-                blocks.map((item, index) => (
-                    <p key={index}>{JSON.stringify(item)}</p>
-                ))}
+                blocks.map((item, index) => <Block key={index} item={item} />)}
         </Layout>
     );
 }

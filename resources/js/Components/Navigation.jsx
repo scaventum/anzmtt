@@ -191,23 +191,30 @@ export default function Navigation({
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16">
                     {/* Logo */}
-                    <div className="flex items-center">
-                        <div className="">
+                    <div className="flex items-center gap-3">
+                        {/* Logo Image */}
+                        <Link href="/" className="flex-shrink-0">
+                            <img
+                                src="storage/logo/logoipsum-411.png"
+                                alt="Logo"
+                                width={40}
+                                height={40}
+                                className="object-contain"
+                            />
+                        </Link>
+
+                        {/* Logo Text */}
+                        <div className="leading-tight">
                             <Link
                                 href="/"
                                 className={`text-xl font-bold ${theme.text.primary}`}
                             >
                                 {navTitle}
                             </Link>
-                            <div className="text-xs">{navSubtitle}</div>
+                            {navSubtitle && (
+                                <div className="text-xs">{navSubtitle}</div>
+                            )}
                         </div>
-                    </div>
-
-                    {/* Desktop Navigation */}
-                    <div className="hidden md:flex items-center space-x-1">
-                        {menu.map((item, index) =>
-                            renderMenuItem(item, index, false)
-                        )}
                     </div>
 
                     {/* Mobile Menu Button */}
