@@ -5,6 +5,7 @@ import Hero from "@components/Hero";
 import Navigation from "@components/Navigation";
 import Footer from "@components/Footer";
 import { defaultTheme } from "@/config/theme";
+import Layout from "@layouts/Layout";
 
 export default function Page({
     meta,
@@ -13,30 +14,20 @@ export default function Page({
     breadcrumbs,
     showBreadcrumbs,
 }) {
-    const { title, subtitle, hero, blocks } = data;
+    const { blocks } = data;
 
     return (
-        <div
-            className={`flex flex-col min-h-screen ${defaultTheme.fontFamily.body}`}
+        <Layout
+            meta={meta}
+            data={data}
+            navigationItems={navigationItems}
+            breadcrumbs={breadcrumbs}
+            showBreadcrumbs={showBreadcrumbs}
         >
-            <Head title={meta.title} />
-            <Navigation menu={navigationItems} meta={meta} />
-            {hero && <Hero {...hero} />}
-            <Header
-                title={title}
-                subtitle={subtitle}
-                breadcrumbs={breadcrumbs}
-                showBreadcrumbs={showBreadcrumbs}
-            />
-            <div className="flex-grow">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                    {blocks &&
-                        blocks.map((item, index) => (
-                            <p key={index}>{JSON.stringify(item)}</p>
-                        ))}
-                </div>
-            </div>
-            <Footer menu={navigationItems} meta={meta} />
-        </div>
+            {blocks &&
+                blocks.map((item, index) => (
+                    <p key={index}>{JSON.stringify(item)}</p>
+                ))}
+        </Layout>
     );
 }
