@@ -46,7 +46,7 @@ export default function Navigation({
                             }}
                             className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
                                 isActiveItem
-                                    ? `${theme.text.primary} ${theme.bg.primary}`
+                                    ? `${theme.text.light} ${theme.bg.primary}`
                                     : `${theme.text.default} ${theme.text.hover} ${theme.bg.hover}`
                             }`}
                         >
@@ -85,7 +85,7 @@ export default function Navigation({
                                             href={`/${subItem.path}`}
                                             className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
                                                 isSubActive
-                                                    ? `${theme.text.primary} ${theme.bg.primary}`
+                                                    ? `${theme.text.light} ${theme.bg.primary}`
                                                     : `${theme.text.default} ${theme.text.hover} ${theme.bg.hover}`
                                             }`}
                                             onClick={() => {
@@ -115,7 +115,7 @@ export default function Navigation({
                         href={`/${item.path}`}
                         className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                             isActiveItem
-                                ? `${theme.text.primary} ${theme.bg.primary}`
+                                ? `${theme.text.light} ${theme.bg.primary}`
                                 : `${theme.text.default} ${theme.text.hover} ${theme.bg.hover}`
                         }`}
                     >
@@ -150,7 +150,7 @@ export default function Navigation({
                                         href={`/${subItem.path}`}
                                         className={`block px-4 py-2 text-sm ${
                                             isSubActive
-                                                ? `${theme.text.primary} ${theme.bg.primary}`
+                                                ? `${theme.text.light} ${theme.bg.primary}`
                                                 : `${theme.text.default} ${theme.text.hover} ${theme.bg.hover}`
                                         }`}
                                         onClick={() => setHoveredSubmenu(null)}
@@ -195,7 +195,7 @@ export default function Navigation({
                         {/* Logo Image */}
                         <Link href="/" className="flex-shrink-0">
                             <img
-                                src="storage/logo/logoipsum-411.png"
+                                src="/storage/logo/logoipsum-411.png"
                                 alt="Logo"
                                 width={40}
                                 height={40}
@@ -215,6 +215,13 @@ export default function Navigation({
                                 <div className="text-xs">{navSubtitle}</div>
                             )}
                         </div>
+                    </div>
+
+                    {/* Desktop Navigation */}
+                    <div className="hidden md:flex items-center space-x-1">
+                        {menu.map((item, index) =>
+                            renderMenuItem(item, index, false)
+                        )}
                     </div>
 
                     {/* Mobile Menu Button */}

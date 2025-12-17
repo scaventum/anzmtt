@@ -1,10 +1,12 @@
 import React from "react";
 import ParagraphBlock from "@blocks/ParagraphBlock";
 import UnorderedListBlock from "@blocks/UnorderedListBlock";
+import ErrorBlock from "@blocks/ErrorBlock";
 
 const BLOCK_COMPONENTS = {
     paragraph: ParagraphBlock,
     unorderedList: UnorderedListBlock,
+    error: ErrorBlock,
 };
 
 export default function Block({ item }) {
