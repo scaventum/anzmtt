@@ -2,6 +2,11 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\Blocks\ContactBlock;
+use App\Filament\Resources\Blocks\NewsBlock;
+use App\Filament\Resources\Blocks\ParagraphBlock;
+use App\Filament\Resources\Blocks\QuoteBlock;
+use App\Filament\Resources\Blocks\UnorderedListBlock;
 use App\Filament\Resources\PageResource\Pages;
 use App\Filament\Resources\PageResource\Pages\CreatePage;
 use App\Filament\Resources\PageResource\Pages\EditPage;
@@ -10,11 +15,13 @@ use App\Models\Page;
 use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\Builder\Block;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
@@ -39,92 +46,96 @@ class PageResource extends Resource
                 ->schema([
                     Section::make('General')
                         ->schema([
-                            TextInput::make('title')
-                                ->required()
-                                ->maxLength(255)
-                                ->live(onBlur: true)
-                                ->afterStateUpdated(
-                                    fn($state, $set) =>
-                                    $set('slug', Str::slug($state))
-                                ),
 
-                            TextInput::make('subtitle')
-                                ->maxLength(255),
 
-                            TextInput::make('short_title')
-                                ->helperText('Shorter title to be shown in menu section')
-                                ->maxLength(255),
+                            Fieldset::make('Title')
+                                ->schema([
+                                    TextInput::make('title')
+                                        ->required()
+                                        ->maxLength(255)
+                                        ->live(onBlur: true)
+                                        ->afterStateUpdated(
+                                            fn($state, $set) =>
+                                            $set('slug', Str::slug($state))
+                                        ),
 
-                            TextInput::make('slug')
-                                ->maxLength(255)
-                                ->unique(ignoreRecord: true)
-                                ->prefix('/'),
+                                    TextInput::make('subtitle')
+                                        ->maxLength(255),
+
+                                    TextInput::make('short_title')
+                                        ->helperText('Shorter title to be shown in menu section')
+                                        ->maxLength(255),
+
+                                    TextInput::make('slug')
+                                        ->maxLength(255)
+                                        ->unique(ignoreRecord: true)
+                                        ->prefix('/'),
+                                ]),
+
+                            Fieldset::make('Content')
+                                ->schema([
+                                    Builder::make('blocks')
+                                        ->label('Page Blocks')
+                                        ->collapsible()
+                                        ->blocks([
+                                            ParagraphBlock::make(),
+                                            UnorderedListBlock::make(),
+                                            NewsBlock::make(),
+                                            QuoteBlock::make(),
+                                            ContactBlock::make(),
+                                        ])
+                                        ->columnSpanFull(),
+                                ]),
                         ])
                         ->columnSpan(['lg' => 2]),
 
                     Section::make('Settings')
                         ->schema([
-                            Toggle::make('published')
-                                ->label('Publish')
-                                ->default(false),
+                            Fieldset::make('Status')
+                                ->schema([
 
-                            DateTimePicker::make('published_at')
-                                ->label('Publish Date')
-                                ->default(now()),
+                                    Toggle::make('published')
+                                        ->label('Publish')
+                                        ->columnSpanFull()
+                                        ->default(false),
 
-                            Select::make('user_id')
-                                ->label('Author')
-                                ->relationship('user', 'name')
-                                ->default(auth()->id())
-                                ->required(),
+                                    DateTimePicker::make('published_at')
+                                        ->label('Publish Date')
+                                        ->default(now()),
+
+                                    Select::make('user_id')
+                                        ->label('Author')
+                                        ->relationship('user', 'name')
+                                        ->default(auth()->id())
+                                        ->required(),
+                                ]),
+
+                            Fieldset::make('Hero')
+                                ->schema([
+                                    TextInput::make('hero.title')
+                                        ->columnSpanFull()
+                                        ->maxLength(255),
+
+                                    TextInput::make('hero.subtitle')
+                                        ->columnSpanFull()
+                                        ->maxLength(255),
+
+                                    TextInput::make('hero.ctaLink.href')
+                                        ->label('CTA link URL / path')
+                                        ->maxLength(255),
+
+                                    TextInput::make('hero.ctaLink.label')
+                                        ->label('CTA link label')
+                                        ->maxLength(255),
+
+                                    FileUpload::make('hero.backgroundImage.src')
+                                        ->label('Background image source')
+                                        ->image()
+                                        ->columnSpanFull()
+                                        ->directory('hero')
+                                ])
                         ])
                         ->columnSpan(['lg' => 1]),
-
-                    Section::make('Hero')
-                        ->schema([
-                            TextInput::make('hero.title')
-                                ->maxLength(255),
-
-                            TextInput::make('hero.subtitle')
-                                ->maxLength(255),
-
-                            TextInput::make('hero.ctaLink.href')
-                                ->label('CTA link URL / path')
-                                ->maxLength(255),
-
-                            TextInput::make('hero.ctaLink.label')
-                                ->label('CTA link label')
-                                ->maxLength(255),
-
-                            FileUpload::make('hero.backgroundImage.src')
-                                ->label('Background image source')
-                                ->image()
-                                ->directory('hero'),
-                        ])
-                        ->columnSpan(['lg' => 2]),
-
-                    Section::make('Content')
-                        ->schema([
-                            Builder::make('blocks')
-                                ->label('Page Blocks')
-                                ->collapsible()
-                                ->blocks([
-                                    Block::make('text')
-                                        ->schema([
-                                            RichEditor::make('content')
-                                                ->required()
-                                                ->toolbarButtons([
-                                                    'bold',
-                                                    'italic',
-                                                    'link',
-                                                    'bulletList',
-                                                    'orderedList',
-                                                ]),
-                                        ]),
-                                ])
-                                ->columnSpanFull(),
-                        ])
-                        ->columnSpan(['lg' => 2]),
                 ])
                 ->columns(['lg' => 3]),
         ]);
