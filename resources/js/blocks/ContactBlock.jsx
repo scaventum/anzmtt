@@ -1,0 +1,22 @@
+import React from "react";
+import { defaultTheme } from "@/config/theme";
+import { Link } from "@inertiajs/react";
+
+export default function ContactBlock({ data, theme = defaultTheme }) {
+    const { title, subtitle } = data;
+
+    return (
+        <div className="flex flex-col gap-4 text-center">
+            <h1 className={`text-3xl font-semibold ${theme.text.primary}`}>
+                {title}
+            </h1>
+            <h3 className={`text-2xl`}>{subtitle}</h3>
+            <Link
+                href="contact"
+                className={`inline-flex self-center items-center px-4 py-2 rounded-lg text-md font-semibold transition-all ${theme.bg.primary} ${theme.text.light} ${theme.bg.hover}`}
+            >
+                Contact us
+            </Link>
+        </div>
+    );
+}
