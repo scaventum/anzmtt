@@ -6,18 +6,21 @@ use Filament\Forms\Components\Builder\Block;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 
-class QuoteBlock
+class QuoteBlock extends BaseBlock
 {
   public static function make(): Block
   {
     return  Block::make('quote')
       ->schema(
-        [
-          Textarea::make('quote')
-            ->required(),
-          TextInput::make('author')
-            ->maxLength(255),
-        ]
+        array_merge(
+          [
+            Textarea::make('quote')
+              ->required(),
+            TextInput::make('author')
+              ->maxLength(255),
+          ],
+          parent::baseSchema()
+        )
       );
   }
 }

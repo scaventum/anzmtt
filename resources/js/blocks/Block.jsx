@@ -16,10 +16,23 @@ const BLOCK_COMPONENTS = {
 
 export default function Block({ item, theme = defaultTheme }) {
     const { type, data } = item;
+    const { background } = data;
     const BlockComponent = BLOCK_COMPONENTS[type];
 
-    const bgColorClass = type === "quote" ? theme.bg.secondary : "";
-    const textColorClass = type === "quote" ? theme.text.light : "";
+    let bgColorClass = theme.bg.neutral;
+    let textColorClass = theme.text.default;
+
+    if (background === "dark") {
+        bgColorClass = theme.bg.secondary;
+    } else if (background === "light") {
+        bgColorClass = theme.bg.default;
+    }
+
+    if (background === "dark") {
+        textColorClass = theme.text.light;
+    } else if (background === "light") {
+        textColorClass = theme.text.default;
+    }
 
     if (!BlockComponent) return null;
 

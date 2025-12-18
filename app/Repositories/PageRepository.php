@@ -17,7 +17,8 @@ class PageRepository
         [
           'type' => 'error',
           'data' => [
-            'body' => 'Sorry, the page you\'re looking for doesn\'t exist or under development.'
+            'body' => 'Sorry, the page you\'re looking for doesn\'t exist or under development.',
+            'background' => 'light'
           ],
         ],
       ],
