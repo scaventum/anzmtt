@@ -1,0 +1,81 @@
+name: Deploy anzmtt-uat
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to UAT
+    runs-on: ubuntu-latest
+    environment: uat
+
+    env:
+      NODE_ENV: production
+      APP_ENV: production
+      APP_DEBUG: false
+
+    steps:
+      # 1. Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Setup Node.js 24
+      - name: Setup Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      # 3. Install frontend dependencies
+      - name: Install frontend dependencies
+        run: npm ci
+
+      # 4. Build frontend
+      - name: Build frontend
+        run: npm run build
+
+      # 5. Setup SSH
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
+
+      # 6. Deploy files
+      - name: Deploy files via rsync
+        run: |
+          rsync -az --delete \
+            --exclude=".git" \
+            --exclude=".github" \
+            --exclude="node_modules" \
+            --exclude=".env" \
+            --exclude="storage/logs/*" \
+            -e "ssh -o StrictHostKeyChecking=no" \
+            ./ \
+            ${{ secrets.LIGHTSAIL_USER }}@${{ vars.LIGHTSAIL_HOST }}:${{ vars.APP_DIR }}
+
+      # 7. Laravel production commands
+      - name: Run Laravel commands on server
+        run: |
+          ssh -o StrictHostKeyChecking=no \
+            ${{ secrets.LIGHTSAIL_USER }}@${{ vars.LIGHTSAIL_HOST }} << 'EOF'
+
+          set -e
+          cd ${{ vars.APP_DIR }}
+
+          composer install --no-dev --optimize-autoloader
+
+          php artisan migrate --force
+
+          php artisan config:clear
+          php artisan route:clear
+          php artisan view:clear
+
+          php artisan config:cache
+          php artisan route:cache
+          php artisan view:cache
+
+          sudo systemctl restart php8.3-fpm
+          sudo systemctl reload nginx
+          EOF
