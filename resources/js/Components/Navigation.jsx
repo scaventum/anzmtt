@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, usePage } from "@inertiajs/react";
-import { defaultTheme } from "@config/theme";
+import { defaultTheme } from "@config/theme.js";
 
 export default function Navigation({
     menu = [],

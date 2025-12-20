@@ -1,5 +1,5 @@
 import React from "react";
-import { defaultTheme } from "@/config/theme";
+import { defaultTheme } from "@/config/them.js";
 
 export default function QuoteBlock({ data, theme = defaultTheme }) {
     const { quote, author } = data;

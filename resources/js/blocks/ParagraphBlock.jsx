@@ -1,5 +1,5 @@
 import React from "react";
-import { defaultTheme } from "@/config/theme";
+import { defaultTheme } from "@/config/theme.js";
 
 export default function ParagraphBlock({ data, theme = defaultTheme }) {
     const { content, logo } = data;

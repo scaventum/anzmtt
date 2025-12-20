@@ -1,7 +1,7 @@
 // resources/js/Components/Footer.jsx
 import React from "react";
 import { Link } from "@inertiajs/react";
-import { defaultTheme } from "@/config/theme";
+import { defaultTheme } from "@/config/theme.js";
 
 export default function Footer({ menu = [], meta, theme = defaultTheme }) {
     const { navTitle, navSubtitle } = meta;

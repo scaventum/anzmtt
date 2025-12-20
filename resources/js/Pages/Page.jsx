@@ -1,6 +1,6 @@
 import React from "react";
-import Layout from "@layouts/Layout";
-import Block from "../blocks/Block";
+import Layout from "@layouts/Layout.jsx";
+import Block from "@blocks/Block.jsx";
 
 export default function Page({
     meta,

@@ -1,7 +1,7 @@
 // resources/js/Components/Hero.jsx
 import React from "react";
 import { Link } from "@inertiajs/react";
-import { defaultTheme } from "@/config/theme";
+import { defaultTheme } from "@/config/theme.js";
 
 export default function Hero({
     backgroundImage,
