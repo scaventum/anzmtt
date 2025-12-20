@@ -62,6 +62,8 @@ jobs:
 
           set -e
           cd ${{ vars.APP_DIR }}
+          sudo chown -R ${{ secrets.LIGHTSAIL_USER }}:www-data storage bootstrap/cache
+          sudo chmod -R 775 storage bootstrap/cache
 
           composer install --no-dev --optimize-autoloader
 
