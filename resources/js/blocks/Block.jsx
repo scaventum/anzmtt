@@ -1,11 +1,11 @@
 import React from "react";
-import ParagraphBlock from "@blocks/ParagraphBlock.jsx";
-import UnorderedListBlock from "@blocks/UnorderedListBlock.jsx";
-import NewsBlock from "@blocks/NewsBlock.jsx";
-import QuoteBlock from "@blocks/QuoteBlock.jsx";
-import ContactBlock from "@blocks/ContactBlock.jsx";
-import ErrorBlock from "@blocks/ErrorBlock.jsx";
-import { defaultTheme } from "@/config/theme.js";
+import ParagraphBlock from "@blocks/ParagraphBlock";
+import UnorderedListBlock from "@blocks/UnorderedListBlock";
+import NewsBlock from "@blocks/NewsBlock";
+import QuoteBlock from "@blocks/QuoteBlock";
+import ContactBlock from "@blocks/ContactBlock";
+import ErrorBlock from "@blocks/ErrorBlock";
+import { defaultTheme } from "@/config/theme";
 
 const BLOCK_COMPONENTS = {
     paragraph: ParagraphBlock,

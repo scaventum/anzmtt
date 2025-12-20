@@ -1,10 +1,10 @@
 import React, { Children } from "react";
 import { Head } from "@inertiajs/react";
-import Header from "@components/Header.jsx";
-import Hero from "@components/Hero.jsx";
-import Navigation from "@components/Navigation.jsx";
-import Footer from "@components/Footer.jsx";
-import { defaultTheme } from "@/config/theme.js";
+import Header from "@components/Header";
+import Hero from "@components/Hero";
+import Navigation from "@components/Navigation";
+import Footer from "@components/Footer";
+import { defaultTheme } from "@/config/theme";
 
 export default function Layout({
     meta,

@@ -1,5 +1,5 @@
 import React from "react";
-import { defaultTheme } from "@/config/theme.js";
+import { defaultTheme } from "@/config/theme";
 import { Link } from "@inertiajs/react";
 
 export default function ContactBlock({ data, theme = defaultTheme }) {
