@@ -44,12 +44,16 @@ class PageController extends Controller
         // Hide breadcrumbs if page not found
         $showBreadcrumbs = $this->pageRepository->checkPageFoundBySlug($slug);
 
+        // Get news pages
+        $newsPages = $this->pageRepository->getNewsPages();
+
         return Inertia::render('Page', [
             'meta' => $meta,
             'data' => $pageData,
             'navigationItems' => $navigationItems,
             'breadcrumbs' => $breadcrumbs,
             'showBreadcrumbs' => $showBreadcrumbs,
+            'newsPages' => $newsPages,
         ]);
     }
 }

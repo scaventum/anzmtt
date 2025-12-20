@@ -12,6 +12,7 @@ export default function Hero({
     fallbackBackground = true,
 }) {
     const hasBackgroundImage = backgroundImage?.src;
+    const hasCtaLink = ctaLink?.href && ctaLink?.label;
 
     return (
         <div
@@ -24,7 +25,7 @@ export default function Hero({
             {hasBackgroundImage && (
                 <div className="absolute inset-0 z-0">
                     <img
-                        src={`storage/${backgroundImage.src}`}
+                        src={`/storage/${backgroundImage.src}`}
                         alt={title}
                         className="w-full h-full object-cover"
                     />
@@ -68,7 +69,7 @@ export default function Hero({
                             )}
 
                             {/* CTA Button */}
-                            {ctaLink && (
+                            {hasCtaLink && (
                                 <Link
                                     href={ctaLink.href}
                                     className={`inline-flex items-center px-8 py-4 rounded-lg text-lg font-semibold transition-all ${

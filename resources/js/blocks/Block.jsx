@@ -16,7 +16,7 @@ const BLOCK_COMPONENTS = {
     error: ErrorBlock,
 };
 
-export default function Block({ item, theme = defaultTheme }) {
+export default function Block({ item, newsPages, theme = defaultTheme }) {
     const { type, data } = item;
     const { background } = data;
     const BlockComponent = BLOCK_COMPONENTS[type];
@@ -41,7 +41,7 @@ export default function Block({ item, theme = defaultTheme }) {
     return (
         <section className={`${bgColorClass} ${textColorClass}`}>
             <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8`}>
-                <BlockComponent data={data} />
+                <BlockComponent data={data} newsPages={newsPages} />
             </div>
         </section>
     );

@@ -8,6 +8,7 @@ export default function Page({
     navigationItems,
     breadcrumbs,
     showBreadcrumbs,
+    newsPages,
 }) {
     const { blocks } = data;
 
@@ -20,7 +21,9 @@ export default function Page({
             showBreadcrumbs={showBreadcrumbs}
         >
             {blocks &&
-                blocks.map((item, index) => <Block key={index} item={item} />)}
+                blocks.map((item, index) => (
+                    <Block key={index} item={item} newsPages={newsPages} />
+                ))}
         </Layout>
     );
 }

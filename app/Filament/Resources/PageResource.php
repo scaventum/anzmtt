@@ -7,29 +7,27 @@ use App\Filament\Resources\Blocks\NewsBlock;
 use App\Filament\Resources\Blocks\ParagraphBlock;
 use App\Filament\Resources\Blocks\QuoteBlock;
 use App\Filament\Resources\Blocks\UnorderedListBlock;
-use App\Filament\Resources\PageResource\Pages;
 use App\Filament\Resources\PageResource\Pages\CreatePage;
 use App\Filament\Resources\PageResource\Pages\EditPage;
 use App\Filament\Resources\PageResource\Pages\ListPages;
 use App\Models\Page;
 use Filament\Forms\Components\Builder;
-use Filament\Forms\Components\Builder\Block;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 
@@ -55,10 +53,11 @@ class PageResource extends Resource
                                         ->maxLength(255)
                                         ->live(onBlur: true)
                                         ->afterStateUpdated(
-                                            fn($state, $set) =>
-                                            $set('slug', Str::slug($state))
+                                            function ($state, callable $set, Get $get) {
+                                                $prefix = $get('type') !== Page::TYPE_GENERAL ? $get('type') . '/' : '';
+                                                return $set('slug', $prefix . Str::slug($state));
+                                            }
                                         ),
-
                                     TextInput::make('subtitle')
                                         ->maxLength(255),
 
@@ -69,7 +68,9 @@ class PageResource extends Resource
                                     TextInput::make('slug')
                                         ->maxLength(255)
                                         ->unique(ignoreRecord: true)
-                                        ->prefix('/'),
+                                        ->prefix('/')
+                                        ->readOnly(fn(Get $get) => $get('type') !== 'general')
+                                        ->reactive(),
                                 ]),
 
                             Fieldset::make('Content')
@@ -91,6 +92,15 @@ class PageResource extends Resource
 
                     Section::make('Settings')
                         ->schema([
+                            Fieldset::make(label: 'Type')->schema([
+                                Select::make('type')
+                                    ->columnSpanFull()
+                                    ->label('Page type')
+                                    ->options(Page::TYPES)
+                                    ->default(Page::TYPE_GENERAL)
+                                    ->reactive()
+                                    ->required(),
+                            ]),
                             Fieldset::make('Status')
                                 ->schema([
 
@@ -109,7 +119,6 @@ class PageResource extends Resource
                                         ->default(auth()->id())
                                         ->required(),
                                 ]),
-
                             Fieldset::make('Hero')
                                 ->schema([
                                     TextInput::make('hero.title')
@@ -133,7 +142,7 @@ class PageResource extends Resource
                                         ->image()
                                         ->columnSpanFull()
                                         ->directory('hero')
-                                ])
+                                ]),
                         ])
                         ->columnSpan(['lg' => 1]),
                 ])
@@ -146,29 +155,17 @@ class PageResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('title')->searchable(),
+                TextColumn::make('type')->searchable(),
                 TextColumn::make('slug')->searchable(),
-                TextColumn::make('subtitle')->searchable(),
-                TextColumn::make('short_title')->searchable(),
-
                 IconColumn::make('published')->boolean(),
+            ])
 
-                TextColumn::make('published_at')
-                    ->dateTime()
-                    ->sortable(),
-
-                TextColumn::make('user.name')
-                    ->sortable(),
-
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])->recordAction(null) // disable modal 
+            ->filters([
+                SelectFilter::make('type')
+                    ->options(Page::TYPES)
+                    ->default(Page::TYPE_GENERAL)
+            ])
+            ->recordAction(null) // disable modal 
             ->recordUrl(fn($record) => static::getUrl('edit', ['record' => $record]))
             ->actions([
                 Action::make('preview')

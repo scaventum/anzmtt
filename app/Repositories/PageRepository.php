@@ -3,13 +3,14 @@
 namespace App\Repositories;
 
 use App\Models\Page;
+use Illuminate\Support\Collection;
 
 class PageRepository
 {
   public function getPageDataBySlug(string $slug): object
   {
-    // @temp: get items from actual CMS
-    $page = Page::whereSlug($slug)->first();
+
+    $page = Page::slug($slug)->first();
 
     $pageData = $page?->toArray() ?? [
       'title' => 'Not found',
@@ -29,6 +30,13 @@ class PageRepository
 
   public function checkPageFoundBySlug(string $slug): bool
   {
-    return Page::whereSlug($slug)->exists();
+    return Page::slug($slug)->exists();
+  }
+
+  public function getNewsPages(int $limit = 9): Collection
+  {
+    $pages = Page::news()->orderByDesc('updated_at')->limit($limit)->get();
+
+    return $pages;
   }
 }

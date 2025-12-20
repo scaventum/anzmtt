@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Page;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,6 +15,7 @@ return new class extends Migration
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('type')->default(Page::TYPE_GENERAL);
             $table->string('slug')->nullable()->unique();
             $table->string('subtitle')->nullable();
             $table->string('short_title')->nullable();

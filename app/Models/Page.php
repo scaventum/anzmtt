@@ -10,8 +10,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Page extends Model
 {
+    const TYPE_GENERAL = 'general';
+    const TYPE_NEWS = 'news';
+    const TYPES = [
+        self::TYPE_GENERAL => 'General',
+        self::TYPE_NEWS => 'News',
+    ];
+
     protected $fillable = [
         'title',
+        'type',
         'slug',
         'subtitle',
         'short_title',
@@ -55,10 +63,21 @@ class Page extends Model
     }
 
     #[Scope]
-    protected function whereSlug(Builder $query, string $slug): void
+    protected function slug(Builder $query, string $slug): void
     {
         $slug = $slug === '/' ? null : $slug;
-
         $query->where('slug', $slug);
+    }
+
+    #[Scope]
+    protected function general(Builder $query): void
+    {
+        $query->where('type', 'general');
+    }
+
+    #[Scope]
+    protected function news(Builder $query): void
+    {
+        $query->where('type', 'news');
     }
 }
