@@ -3,7 +3,7 @@ name: Deploy anzmtt-uat
 on:
   push:
     branches:
-      - main
+      - uat
 
 jobs:
   deploy:
