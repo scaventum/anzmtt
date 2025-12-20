@@ -5,7 +5,7 @@ import NewsBlock from "@blocks/NewsBlock.jsx";
 import QuoteBlock from "@blocks/QuoteBlock.jsx";
 import ContactBlock from "@blocks/ContactBlock.jsx";
 import ErrorBlock from "@blocks/ErrorBlock.jsx";
-import { defaultTheme } from "@/config/theme.jsx";
+import { defaultTheme } from "@/config/theme.js";
 
 const BLOCK_COMPONENTS = {
     paragraph: ParagraphBlock,
