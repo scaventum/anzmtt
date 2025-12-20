@@ -10,7 +10,7 @@ export default function ParagraphBlock({ data, theme = defaultTheme }) {
             {logo && (
                 <div className="flex-shrink-0">
                     <img
-                        src="/storage/logo/logoipsum-411.png"
+                        src="/images/logoipsum.png"
                         alt="logo"
                         className="h-50"
                     />

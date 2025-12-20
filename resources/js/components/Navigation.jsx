@@ -195,7 +195,7 @@ export default function Navigation({
                         {/* Logo Image */}
                         <Link href="/" className="flex-shrink-0">
                             <img
-                                src="/storage/logo/logoipsum-411.png"
+                                src="/images/logoipsum.png"
                                 alt="Logo"
                                 width={40}
                                 height={40}
