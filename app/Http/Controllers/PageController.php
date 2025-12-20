@@ -44,6 +44,9 @@ class PageController extends Controller
         // Hide breadcrumbs if page not found
         $showBreadcrumbs = $this->pageRepository->checkPageFoundBySlug($slug);
 
+        // Hide headers on home
+        $showHeaders = $slug !== '/';
+
         // Get news pages
         $newsPages = $this->pageRepository->getNewsPages();
 
@@ -52,6 +55,7 @@ class PageController extends Controller
             'data' => $pageData,
             'navigationItems' => $navigationItems,
             'breadcrumbs' => $breadcrumbs,
+            'showHeaders' => $showHeaders,
             'showBreadcrumbs' => $showBreadcrumbs,
             'newsPages' => $newsPages,
         ]);

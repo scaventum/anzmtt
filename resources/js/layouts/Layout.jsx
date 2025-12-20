@@ -12,6 +12,7 @@ export default function Layout({
     navigationItems,
     breadcrumbs,
     showBreadcrumbs,
+    showHeaders,
     children,
 }) {
     const { title, subtitle, hero } = data;
@@ -23,12 +24,14 @@ export default function Layout({
             <Head title={meta.title} />
             <Navigation menu={navigationItems} meta={meta} />
             {hero && <Hero {...hero} />}
-            <Header
-                title={title}
-                subtitle={subtitle}
-                breadcrumbs={breadcrumbs}
-                showBreadcrumbs={showBreadcrumbs}
-            />
+            {showHeaders && (
+                <Header
+                    title={title}
+                    subtitle={subtitle}
+                    breadcrumbs={breadcrumbs}
+                    showBreadcrumbs={showBreadcrumbs}
+                />
+            )}
             <div className="flex-grow">{children}</div>
             <Footer menu={navigationItems} meta={meta} />
         </div>
