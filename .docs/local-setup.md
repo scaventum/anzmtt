@@ -1,3 +1,6 @@
 # Local setup
 
-TBA.
+Requirements:
+
+-   Docker desktop
+-   Git
