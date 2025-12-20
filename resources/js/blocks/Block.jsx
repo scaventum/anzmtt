@@ -1,14 +1,16 @@
 import React from "react";
 import ParagraphBlock from "@blocks/ParagraphBlock";
 import UnorderedListBlock from "@blocks/UnorderedListBlock";
-import ErrorBlock from "@blocks/ErrorBlock";
+import NewsBlock from "@blocks/NewsBlock";
 import QuoteBlock from "@blocks/QuoteBlock";
 import ContactBlock from "@blocks/ContactBlock";
+import ErrorBlock from "@blocks/ErrorBlock";
 import { defaultTheme } from "@/config/theme";
 
 const BLOCK_COMPONENTS = {
     paragraph: ParagraphBlock,
     unorderedList: UnorderedListBlock,
+    news: NewsBlock,
     quote: QuoteBlock,
     contact: ContactBlock,
     error: ErrorBlock,
