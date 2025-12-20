@@ -1,7 +1,7 @@
 // resources/js/Components/Header.jsx
 import React from "react";
 import { Link } from "@inertiajs/react";
-import { defaultTheme } from "@/config/theme.js";
+import { defaultTheme } from "@/config/theme";
 
 export default function Header({
     title = "",
