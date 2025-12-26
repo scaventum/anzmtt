@@ -49,8 +49,8 @@ jobs:
             --exclude=".github" \
             --exclude="node_modules" \
             --exclude="vendor/*" \
+            --exclude="storage/*" \
             --exclude=".env" \
-            --exclude="storage/logs/*" \
             -e "ssh -o StrictHostKeyChecking=no" \
             ./ \
             ${{ secrets.LIGHTSAIL_USER }}@${{ vars.LIGHTSAIL_HOST }}:${{ vars.APP_DIR }}
