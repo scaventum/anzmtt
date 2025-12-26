@@ -20,8 +20,8 @@ class BasicAuth
             return $next($request);
         }
 
-        $USERNAME = env('BASIC_AUTH_USER', 'uatuser');
-        $PASSWORD = env('BASIC_AUTH_PASS', 'uatpass');
+        $USERNAME = config('auth.basic.user');
+        $PASSWORD = config('auth.basic.pass');
 
         return $request->getUser() === $USERNAME &&
             $request->getPassword() === $PASSWORD

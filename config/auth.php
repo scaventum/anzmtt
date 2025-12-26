@@ -112,4 +112,10 @@ return [
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
+
+    /** Basic auth */
+    'basic' => [
+        'user' => env('BASIC_AUTH_USER', 'user'),
+        'pass' => env('BASIC_AUTH_PASS', 'pass'),
+    ],
 ];
