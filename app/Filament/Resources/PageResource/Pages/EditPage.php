@@ -5,6 +5,7 @@ namespace App\Filament\Resources\PageResource\Pages;
 use App\Filament\Resources\PageResource;
 use Filament\Actions;
 use Filament\Actions\Action;
+use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
 class EditPage extends EditRecord
@@ -20,11 +21,13 @@ class EditPage extends EditRecord
                 ->visible(fn(): bool => $this->record->published)
                 ->openUrlInNewTab(),
             Action::make('preview')
+                ->label('Preview (auto-refresh 5s)')
                 ->icon('heroicon-o-eye')
+                ->tooltip('Preview page auto-refreshes every 5 seconds')
                 ->url(fn() => url($this->record->previewUrl))
                 ->visible(fn(): bool => !$this->record->published)
                 ->openUrlInNewTab(),
-            Actions\DeleteAction::make(),
+            DeleteAction::make(),
         ];
     }
 }

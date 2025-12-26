@@ -80,4 +80,16 @@ class Page extends Model
     {
         $query->where('type', 'news');
     }
+
+    #[Scope]
+    protected function published(Builder $query): void
+    {
+        $query->where('published', true);
+    }
+
+    #[Scope]
+    protected function draft(Builder $query): void
+    {
+        $query->where('published', false);
+    }
 }

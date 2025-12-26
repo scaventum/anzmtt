@@ -8,13 +8,14 @@ Route::middleware([BasicAuth::class])->group(
   function () {
     // Preview routes
     Route::middleware(['auth'])->group(function () {
-      Route::get('/preview/{page}', [PageController::class, 'show'])
+      Route::get('/preview/{slug}', [PageController::class, 'preview'])
+        ->where('slug', '.*')
         ->name('page.preview');
     });
 
     // Public page route
-    Route::get('/{page}', [PageController::class, 'show'])
-      ->where('page', '.*')
+    Route::get('/{slug}', [PageController::class, 'show'])
+      ->where('slug', '.*')
       ->name('page.show');
   }
 );

@@ -3,14 +3,16 @@
 namespace App\Repositories;
 
 use App\Models\Page;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class PageRepository
 {
-  public function getPageDataBySlug(string $slug): object
+  public function getPageDataBySlug(string $slug, bool $published = true): object
   {
-
-    $page = Page::slug($slug)->first();
+    $page = Page::slug($slug)->when($published, function (Builder $query) {
+      $query->published();
+    })->first();
 
     $pageData = $page?->toArray() ?? [
       'title' => 'Not found',
@@ -28,14 +30,18 @@ class PageRepository
     return json_decode(json_encode($pageData));
   }
 
-  public function checkPageFoundBySlug(string $slug): bool
+  public function checkPageFoundBySlug(string $slug, bool $published = true): bool
   {
-    return Page::slug($slug)->exists();
+    return Page::slug($slug)->when($published, function (Builder $query) {
+      $query->published();
+    })->exists();
   }
 
-  public function getNewsPages(int $limit = 9): Collection
+  public function getNewsPages(int $limit = 9, bool $published = true): Collection
   {
-    $pages = Page::news()->orderByDesc('updated_at')->limit($limit)->get();
+    $pages = Page::news()->when($published, function (Builder $query) {
+      $query->published();
+    })->orderByDesc('updated_at')->limit($limit)->get();
 
     return $pages;
   }

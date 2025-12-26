@@ -27,7 +27,7 @@ class PageController extends Controller
 
     public function show()
     {
-        $slug = request()->path();
+        $slug = request()->slug ?? '/';
 
         // Get navigation items
         $navigationItems = $this->navigationRepository->getItems();
@@ -58,6 +58,44 @@ class PageController extends Controller
             'showHeaders' => $showHeaders,
             'showBreadcrumbs' => $showBreadcrumbs,
             'newsPages' => $newsPages,
+            'preview' => false,
+        ]);
+    }
+
+    public function preview()
+    {
+        $slug = request()->slug ?? '/';
+
+        // Get navigation items
+        $navigationItems = $this->navigationRepository->getItems();
+
+        // Compose breadcrumbs by slug
+        $breadcrumbs = $this->navigationRepository->composeBreadcrumbBySlug($slug);
+
+        // Get page data by slug
+        $pageData = $this->pageRepository->getPageDataBySlug($slug, false);
+
+        // Compose meta data by page data
+        $meta = $this->metaRepository->composeByPageData($pageData);
+
+        // Hide breadcrumbs if page not found
+        $showBreadcrumbs = $this->pageRepository->checkPageFoundBySlug($slug, false);
+
+        // Hide headers on home
+        $showHeaders = $slug !== '/';
+
+        // Get news pages
+        $newsPages = $this->pageRepository->getNewsPages(published: false);
+
+        return Inertia::render('Page', [
+            'meta' => $meta,
+            'data' => $pageData,
+            'navigationItems' => $navigationItems,
+            'breadcrumbs' => $breadcrumbs,
+            'showHeaders' => $showHeaders,
+            'showBreadcrumbs' => $showBreadcrumbs,
+            'newsPages' => $newsPages,
+            'preview' => true,
         ]);
     }
 }

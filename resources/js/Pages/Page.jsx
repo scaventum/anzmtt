@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "@layouts/Layout";
 import Block from "@blocks/Block";
 
@@ -10,8 +10,19 @@ export default function Page({
     showBreadcrumbs,
     showHeaders,
     newsPages,
+    preview,
 }) {
     const { blocks } = data;
+
+    useEffect(() => {
+        if (!preview) return;
+
+        const interval = setInterval(() => {
+            window.location.reload();
+        }, 5000);
+
+        return () => clearInterval(interval);
+    }, [preview]);
 
     return (
         <Layout
