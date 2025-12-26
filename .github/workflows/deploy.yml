@@ -62,27 +62,11 @@ jobs:
 
           set -e
           cd ${{ vars.APP_DIR }}
-          sudo chown -R ${{ secrets.LIGHTSAIL_USER }}:www-data storage bootstrap/cache
-          sudo chmod -R 775 storage bootstrap/cache
 
           composer install --no-dev --optimize-autoloader
 
-          # Create .env if missing
-          if [ ! -f .env ]; then
-            cp .env.example .env
-            php artisan key:generate
-            echo ".env file created and APP_KEY generated"
-          else
-            echo ".env already exists, skipping"
-          fi
-
-          # Ensure SQLite database file exists
-          mkdir -p database
-          touch database/database.sqlite
-
            # Set proper permissions
-          sudo chown -R ${{ secrets.LIGHTSAIL_USER }}: ${{ vars.APP_DIR }}
-          sudo chmod -R 775 database/database.sqlite
+          sudo chown -R ${{ secrets.LIGHTSAIL_USER }}:www-data ${{ vars.APP_DIR }}
           sudo chmod -R 775 storage bootstrap/cache
 
           php artisan migrate --force
