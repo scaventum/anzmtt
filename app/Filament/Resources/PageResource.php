@@ -154,10 +154,11 @@ class PageResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('updated_at', 'desc')
             ->defaultGroup('type')
             ->columns([
-                TextColumn::make('title')->searchable()->sortable(),
-                TextColumn::make('slug')->searchable()->sortable(),
+                TextColumn::make('title')->searchable(),
+                TextColumn::make('slug')->searchable(),
                 TextColumn::make('updated_at')->sortable(),
                 IconColumn::make('published')->boolean(),
             ])
@@ -180,7 +181,6 @@ class PageResource extends Resource
                     ->url(fn(Page $record): string => $record->url)
                     ->openUrlInNewTab()
                     ->visible(fn(Page $record): bool => $record->published),
-                DeleteAction::make(),
             ]);
     }
 

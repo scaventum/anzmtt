@@ -6,6 +6,7 @@ use App\Filament\Resources\PageResource;
 use Filament\Actions;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
+use Filament\Actions\ReplicateAction;
 use Filament\Resources\Pages\EditRecord;
 
 class EditPage extends EditRecord
@@ -33,6 +34,21 @@ class EditPage extends EditRecord
                 ->url(fn() => url($this->record->previewUrl))
                 ->visible(fn(): bool => !$this->record->published)
                 ->openUrlInNewTab(),
+        ];
+    }
+
+    /**
+     * @return array<Action | ActionGroup>
+     */
+    protected function getFormActions(): array
+    {
+        return [
+            $this->getSaveFormAction(),
+            ReplicateAction::make()->excludeAttributes(['slug'])
+                ->beforeReplicaSaved(function ($replica) {
+                    $replica->published = false;
+                })
+                ->successRedirectUrl(fn($replica) => url('/admin/pages/' . $replica->id . '/edit')),
             DeleteAction::make(),
         ];
     }
