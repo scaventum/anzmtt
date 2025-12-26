@@ -153,9 +153,9 @@ class PageResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultGroup('type')
             ->columns([
                 TextColumn::make('title')->searchable(),
-                TextColumn::make('type')->searchable(),
                 TextColumn::make('slug')->searchable(),
                 IconColumn::make('published')->boolean(),
             ])
@@ -163,7 +163,6 @@ class PageResource extends Resource
             ->filters([
                 SelectFilter::make('type')
                     ->options(Page::TYPES)
-                    ->default(Page::TYPE_GENERAL)
             ])
             ->recordAction(null) // disable modal 
             ->recordUrl(fn($record) => static::getUrl('edit', ['record' => $record]))
