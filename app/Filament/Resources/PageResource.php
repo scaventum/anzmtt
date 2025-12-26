@@ -28,6 +28,7 @@ use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 
@@ -155,14 +156,16 @@ class PageResource extends Resource
         return $table
             ->defaultGroup('type')
             ->columns([
-                TextColumn::make('title')->searchable(),
-                TextColumn::make('slug')->searchable(),
+                TextColumn::make('title')->searchable()->sortable(),
+                TextColumn::make('slug')->searchable()->sortable(),
+                TextColumn::make('updated_at')->sortable(),
                 IconColumn::make('published')->boolean(),
             ])
 
             ->filters([
                 SelectFilter::make('type')
-                    ->options(Page::TYPES)
+                    ->options(Page::TYPES),
+                TernaryFilter::make('published')
             ])
             ->recordAction(null) // disable modal 
             ->recordUrl(fn($record) => static::getUrl('edit', ['record' => $record]))
