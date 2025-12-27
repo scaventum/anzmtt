@@ -12,6 +12,7 @@ export default function Page({
     newsPages,
     executiveCommitteeMembers,
     advisoryBoardMembers,
+    members,
     preview,
 }) {
     const { blocks } = data;
@@ -43,6 +44,7 @@ export default function Page({
                         newsPages={newsPages}
                         executiveCommitteeMembers={executiveCommitteeMembers}
                         advisoryBoardMembers={advisoryBoardMembers}
+                        members={members}
                     />
                 ))}
         </Layout>

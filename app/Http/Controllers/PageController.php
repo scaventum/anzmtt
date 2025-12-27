@@ -61,6 +61,9 @@ class PageController extends Controller
         // Get executive commitee members
         $advisoryBoardMembers = $this->memberRepository->getAdvisoryBoard();
 
+        // Get executive commitee members
+        $members = $this->memberRepository->getAll();
+
         return Inertia::render('Page', [
             'meta' => $meta,
             'data' => $pageData,
@@ -71,6 +74,7 @@ class PageController extends Controller
             'newsPages' => $newsPages,
             'executiveCommitteeMembers' => $executiveCommitteeMembers,
             'advisoryBoardMembers' => $advisoryBoardMembers,
+            'members' => $members,
             'preview' => false,
         ]);
     }
@@ -100,6 +104,15 @@ class PageController extends Controller
         // Get news pages
         $newsPages = $this->pageRepository->getNewsPages(published: false);
 
+        // Get executive commitee members
+        $executiveCommitteeMembers = $this->memberRepository->getExecutiveCommittee();
+
+        // Get executive commitee members
+        $advisoryBoardMembers = $this->memberRepository->getAdvisoryBoard();
+
+        // Get executive commitee members
+        $members = $this->memberRepository->getAll();
+
         return Inertia::render('Page', [
             'meta' => $meta,
             'data' => $pageData,
@@ -108,6 +121,9 @@ class PageController extends Controller
             'showHeaders' => $showHeaders,
             'showBreadcrumbs' => $showBreadcrumbs,
             'newsPages' => $newsPages,
+            'executiveCommitteeMembers' => $executiveCommitteeMembers,
+            'advisoryBoardMembers' => $advisoryBoardMembers,
+            'members' => $members,
             'preview' => true,
         ]);
     }

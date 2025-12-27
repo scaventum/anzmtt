@@ -7,6 +7,7 @@ import ContactBlock from "@blocks/ContactBlock";
 import ErrorBlock from "@blocks/ErrorBlock";
 import ExecutiveCommitteeBlock from "@blocks/ExecutiveCommitteeBlock";
 import AdvisoryBoardBlock from "@blocks/AdvisoryBoardBlock";
+import MemberDirectoryBlock from "@blocks/MemberDirectoryBlock";
 import { defaultTheme } from "@/config/theme";
 
 const BLOCK_COMPONENTS = {
@@ -17,6 +18,7 @@ const BLOCK_COMPONENTS = {
     contact: ContactBlock,
     executiveCommittee: ExecutiveCommitteeBlock,
     advisoryBoard: AdvisoryBoardBlock,
+    memberDirectory: MemberDirectoryBlock,
     error: ErrorBlock,
 };
 
@@ -25,6 +27,7 @@ export default function Block({
     newsPages,
     executiveCommitteeMembers,
     advisoryBoardMembers,
+    members,
     theme = defaultTheme,
 }) {
     const { type, data } = item;
@@ -58,6 +61,7 @@ export default function Block({
                     newsPages={newsPages}
                     executiveCommitteeMembers={executiveCommitteeMembers}
                     advisoryBoardMembers={advisoryBoardMembers}
+                    members={members}
                 />
             </div>
         </section>
