@@ -2,12 +2,13 @@
 
 use App\Http\Controllers\PageController;
 use App\Http\Middleware\BasicAuth;
+use Filament\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware([BasicAuth::class])->group(
   function () {
     // Preview routes
-    Route::middleware(['auth'])->group(function () {
+    Route::middleware([Authenticate::class])->group(function () {
       Route::get('/preview/{slug}', [PageController::class, 'preview'])
         ->where('slug', '.*')
         ->name('page.preview');
