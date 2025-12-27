@@ -10,11 +10,11 @@ class Member extends Model
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
 
-    const TYPE_EXECUTIVE_COMMITEE = 'executive-commitee';
+    const TYPE_EXECUTIVE_COMMITTEE = 'executive-committee';
     const TYPE_ADVISORY_BOARD = 'advisory-board';
 
     const TYPES = [
-        self::TYPE_EXECUTIVE_COMMITEE => 'Executive comitee',
+        self::TYPE_EXECUTIVE_COMMITTEE => 'Executive comitee',
         self::TYPE_ADVISORY_BOARD => 'Advisory board',
     ];
 
@@ -34,6 +34,7 @@ class Member extends Model
         'interests',
         'bio',
         'last_active_at',
+        'avatar'
     ];
 
     /**

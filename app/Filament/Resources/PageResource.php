@@ -2,7 +2,10 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\Blocks\AdvisoryBoardBlock;
 use App\Filament\Resources\Blocks\ContactBlock;
+use App\Filament\Resources\Blocks\ExecutiveCommitteeBlock;
+use App\Filament\Resources\Blocks\MemberDirectoryBlock;
 use App\Filament\Resources\Blocks\NewsBlock;
 use App\Filament\Resources\Blocks\ParagraphBlock;
 use App\Filament\Resources\Blocks\QuoteBlock;
@@ -24,7 +27,6 @@ use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\Action;
-use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -36,7 +38,7 @@ class PageResource extends Resource
 {
     protected static ?string $model = Page::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-window';
 
     public static function form(Form $form): Form
     {
@@ -85,6 +87,9 @@ class PageResource extends Resource
                                             NewsBlock::make(),
                                             QuoteBlock::make(),
                                             ContactBlock::make(),
+                                            ExecutiveCommitteeBlock::make(),
+                                            AdvisoryBoardBlock::make(),
+                                            MemberDirectoryBlock::make(),
                                         ])
                                         ->columnSpanFull(),
                                 ]),
@@ -142,6 +147,7 @@ class PageResource extends Resource
                                         ->label('Background image source')
                                         ->image()
                                         ->columnSpanFull()
+                                        ->maxSize(2048)
                                         ->directory('hero')
                                 ]),
                         ])
@@ -162,7 +168,6 @@ class PageResource extends Resource
                 TextColumn::make('updated_at')->sortable(),
                 IconColumn::make('published')->boolean(),
             ])
-
             ->filters([
                 SelectFilter::make('type')
                     ->options(Page::TYPES),

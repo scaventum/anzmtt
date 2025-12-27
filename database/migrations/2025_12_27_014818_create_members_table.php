@@ -22,6 +22,7 @@ return new class extends Migration
             $table->json('types')->nullable();
             $table->json('interests')->nullable();
             $table->text('bio')->nullable();
+            $table->string('avatar')->nullable();
             $table->timestamp('last_active_at')->nullable();
             $table->timestamps();
         });
