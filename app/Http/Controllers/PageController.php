@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\MemberRepository;
 use App\Repositories\MetaRepository;
 use App\Repositories\NavigationRepository;
 use App\Repositories\PageRepository;
@@ -15,14 +16,18 @@ class PageController extends Controller
 
     protected MetaRepository $metaRepository;
 
+    protected MemberRepository $memberRepository;
+
     public function __construct(
         PageRepository $pageRepository,
         NavigationRepository $navigationRepository,
         MetaRepository $metaRepository,
+        MemberRepository $memberRepository,
     ) {
         $this->pageRepository = $pageRepository;
         $this->navigationRepository = $navigationRepository;
         $this->metaRepository = $metaRepository;
+        $this->memberRepository = $memberRepository;
     }
 
     public function show()
@@ -50,6 +55,12 @@ class PageController extends Controller
         // Get news pages
         $newsPages = $this->pageRepository->getNewsPages();
 
+        // Get executive commitee members
+        $executiveCommitteeMembers = $this->memberRepository->getExecutiveCommittee();
+
+        // Get executive commitee members
+        $advisoryBoardMembers = $this->memberRepository->getAdvisoryBoard();
+
         return Inertia::render('Page', [
             'meta' => $meta,
             'data' => $pageData,
@@ -58,6 +69,8 @@ class PageController extends Controller
             'showHeaders' => $showHeaders,
             'showBreadcrumbs' => $showBreadcrumbs,
             'newsPages' => $newsPages,
+            'executiveCommitteeMembers' => $executiveCommitteeMembers,
+            'advisoryBoardMembers' => $advisoryBoardMembers,
             'preview' => false,
         ]);
     }

@@ -9,7 +9,7 @@ class ExecutiveCommitteeBlock extends BaseBlock
 {
   public static function make(): Block
   {
-    return Block::make('executive-committee')
+    return Block::make('executiveCommittee')
       ->schema(
         array_merge(
           [],

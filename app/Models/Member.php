@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -49,5 +51,17 @@ class Member extends Model
             'interests' => 'array',
             'last_active_at' => 'datetime',
         ];
+    }
+
+    #[Scope]
+    protected function executiveCommittee(Builder $query)
+    {
+        $query->whereJsonContains('types', self::TYPE_EXECUTIVE_COMMITTEE);
+    }
+
+    #[Scope]
+    protected function advisoryBoard(Builder $query)
+    {
+        $query->whereJsonContains('types', self::TYPE_ADVISORY_BOARD);
     }
 }

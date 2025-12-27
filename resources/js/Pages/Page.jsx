@@ -10,6 +10,8 @@ export default function Page({
     showBreadcrumbs,
     showHeaders,
     newsPages,
+    executiveCommitteeMembers,
+    advisoryBoardMembers,
     preview,
 }) {
     const { blocks } = data;
@@ -35,7 +37,13 @@ export default function Page({
         >
             {blocks &&
                 blocks.map((item, index) => (
-                    <Block key={index} item={item} newsPages={newsPages} />
+                    <Block
+                        key={index}
+                        item={item}
+                        newsPages={newsPages}
+                        executiveCommitteeMembers={executiveCommitteeMembers}
+                        advisoryBoardMembers={advisoryBoardMembers}
+                    />
                 ))}
         </Layout>
     );

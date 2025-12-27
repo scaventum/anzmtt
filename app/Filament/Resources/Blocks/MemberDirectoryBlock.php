@@ -8,7 +8,7 @@ class MemberDirectoryBlock extends BaseBlock
 {
   public static function make(): Block
   {
-    return Block::make('member-directory')
+    return Block::make('memberDirectory')
       ->schema(
         array_merge(
           [],

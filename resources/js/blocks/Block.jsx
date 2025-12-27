@@ -5,6 +5,8 @@ import NewsBlock from "@blocks/NewsBlock";
 import QuoteBlock from "@blocks/QuoteBlock";
 import ContactBlock from "@blocks/ContactBlock";
 import ErrorBlock from "@blocks/ErrorBlock";
+import ExecutiveCommitteeBlock from "@blocks/ExecutiveCommitteeBlock";
+import AdvisoryBoardBlock from "@blocks/AdvisoryBoardBlock";
 import { defaultTheme } from "@/config/theme";
 
 const BLOCK_COMPONENTS = {
@@ -13,10 +15,18 @@ const BLOCK_COMPONENTS = {
     news: NewsBlock,
     quote: QuoteBlock,
     contact: ContactBlock,
+    executiveCommittee: ExecutiveCommitteeBlock,
+    advisoryBoard: AdvisoryBoardBlock,
     error: ErrorBlock,
 };
 
-export default function Block({ item, newsPages, theme = defaultTheme }) {
+export default function Block({
+    item,
+    newsPages,
+    executiveCommitteeMembers,
+    advisoryBoardMembers,
+    theme = defaultTheme,
+}) {
     const { type, data } = item;
     const { background } = data;
     const BlockComponent = BLOCK_COMPONENTS[type];
@@ -43,7 +53,12 @@ export default function Block({ item, newsPages, theme = defaultTheme }) {
             <div
                 className={`max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 lg:py-12`}
             >
-                <BlockComponent data={data} newsPages={newsPages} />
+                <BlockComponent
+                    data={data}
+                    newsPages={newsPages}
+                    executiveCommitteeMembers={executiveCommitteeMembers}
+                    advisoryBoardMembers={advisoryBoardMembers}
+                />
             </div>
         </section>
     );

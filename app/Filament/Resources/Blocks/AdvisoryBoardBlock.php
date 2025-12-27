@@ -9,7 +9,7 @@ class AdvisoryBoardBlock extends BaseBlock
 {
   public static function make(): Block
   {
-    return Block::make('advisory-board')
+    return Block::make('advisoryBoard')
       ->schema(
         array_merge(
           [],
