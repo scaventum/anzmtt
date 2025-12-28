@@ -48,7 +48,7 @@ export default function Hero({
                                     className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-6  ${
                                         hasBackgroundImage
                                             ? "text-white"
-                                            : theme.text.primary
+                                            : theme.text.light
                                     }`}
                                 >
                                     {title}
@@ -61,7 +61,7 @@ export default function Hero({
                                     className={`text-xl md:text-2xl mb-10 ${
                                         hasBackgroundImage
                                             ? "text-gray-200"
-                                            : theme.text.default
+                                            : theme.text.light
                                     }`}
                                 >
                                     {subtitle}

@@ -12,9 +12,11 @@ class Page extends Model
 {
     const TYPE_GENERAL = 'general';
     const TYPE_NEWS = 'news';
+    const TYPE_CONFERENCES = 'conferences';
     const TYPES = [
         self::TYPE_GENERAL => 'General',
         self::TYPE_NEWS => 'News',
+        self::TYPE_CONFERENCES => 'Conferences',
     ];
 
     protected $fillable = [
