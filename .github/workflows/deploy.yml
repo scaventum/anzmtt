@@ -11,10 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: uat
 
-    env:
-      APP_ENV: production
-      APP_DEBUG: false
-
     steps:
       # 1. Checkout repository
       - name: Checkout code

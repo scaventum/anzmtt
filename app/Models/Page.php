@@ -44,6 +44,11 @@ class Page extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function conference()
+    {
+        return $this->hasOne(Conference::class);
+    }
+
     public function previewUrl(): Attribute
     {
         $slug = $this->slug;
