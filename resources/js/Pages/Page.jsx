@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Layout from "@layouts/Layout";
 import Block from "@blocks/Block";
+import Conference from "@blocks/ConferenceBlock";
 
 export default function Page({
     meta,
@@ -15,7 +16,9 @@ export default function Page({
     members,
     preview,
 }) {
-    const { blocks } = data;
+    const { blocks, type, conference } = data;
+
+    const conferencePage = type === "conferences" && conference;
 
     useEffect(() => {
         if (!preview) return;
@@ -36,6 +39,7 @@ export default function Page({
             showBreadcrumbs={showBreadcrumbs}
             showHeaders={showHeaders}
         >
+            {conferencePage && <Conference conference={conference} />}
             {blocks &&
                 blocks.map((item, index) => (
                     <Block

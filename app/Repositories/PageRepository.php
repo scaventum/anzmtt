@@ -10,7 +10,7 @@ class PageRepository
 {
   public function getPageDataBySlug(string $slug, bool $published = true): object
   {
-    $page = Page::slug($slug)->when($published, function (Builder $query) {
+    $page = Page::with('conference')->slug($slug)->when($published, function (Builder $query) {
       $query->published();
     })->first();
 
