@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\Blocks\AdvisoryBoardBlock;
+use App\Filament\Resources\Blocks\ConferencesBlock;
 use App\Filament\Resources\Blocks\ContactBlock;
 use App\Filament\Resources\Blocks\ExecutiveCommitteeBlock;
 use App\Filament\Resources\Blocks\MemberDirectoryBlock;
@@ -129,6 +130,7 @@ class PageResource extends Resource
                                             ParagraphBlock::make(),
                                             UnorderedListBlock::make(),
                                             NewsBlock::make(),
+                                            ConferencesBlock::make(),
                                             QuoteBlock::make(),
                                             ContactBlock::make(),
                                             ExecutiveCommitteeBlock::make(),

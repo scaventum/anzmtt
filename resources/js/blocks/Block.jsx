@@ -2,6 +2,7 @@ import React from "react";
 import ParagraphBlock from "@blocks/ParagraphBlock";
 import UnorderedListBlock from "@blocks/UnorderedListBlock";
 import NewsBlock from "@blocks/NewsBlock";
+import ConferencesBlock from "@blocks/ConferencesBlock";
 import QuoteBlock from "@blocks/QuoteBlock";
 import ContactBlock from "@blocks/ContactBlock";
 import ErrorBlock from "@blocks/ErrorBlock";
@@ -20,6 +21,7 @@ const BLOCK_COMPONENTS = {
     advisoryBoard: AdvisoryBoardBlock,
     memberDirectory: MemberDirectoryBlock,
     error: ErrorBlock,
+    conferences: ConferencesBlock,
 };
 
 export default function Block({
