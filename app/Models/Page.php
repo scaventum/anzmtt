@@ -69,6 +69,13 @@ class Page extends Model
         );
     }
 
+    protected function shortTitle(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->short_title ?? $this->title,
+        );
+    }
+
     #[Scope]
     protected function slug(Builder $query, string $slug): void
     {
