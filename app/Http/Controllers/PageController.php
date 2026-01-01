@@ -55,6 +55,9 @@ class PageController extends Controller
         // Get news pages
         $newsPages = $this->pageRepository->getNewsPages();
 
+        // Get conferences pages
+        $conferencesPages = $this->pageRepository->getConferencesPages();
+
         // Get executive commitee members
         $executiveCommitteeMembers = $this->memberRepository->getExecutiveCommittee();
 
@@ -72,6 +75,7 @@ class PageController extends Controller
             'showHeaders' => $showHeaders,
             'showBreadcrumbs' => $showBreadcrumbs,
             'newsPages' => $newsPages,
+            'conferencesPages' => $conferencesPages,
             'executiveCommitteeMembers' => $executiveCommitteeMembers,
             'advisoryBoardMembers' => $advisoryBoardMembers,
             'members' => $members,
@@ -104,6 +108,9 @@ class PageController extends Controller
         // Get news pages
         $newsPages = $this->pageRepository->getNewsPages(published: false);
 
+        // Get conferences pages
+        $conferencesPages = $this->pageRepository->getConferencesPages(published: false);
+
         // Get executive commitee members
         $executiveCommitteeMembers = $this->memberRepository->getExecutiveCommittee();
 
@@ -121,6 +128,7 @@ class PageController extends Controller
             'showHeaders' => $showHeaders,
             'showBreadcrumbs' => $showBreadcrumbs,
             'newsPages' => $newsPages,
+            'conferencesPages' => $conferencesPages,
             'executiveCommitteeMembers' => $executiveCommitteeMembers,
             'advisoryBoardMembers' => $advisoryBoardMembers,
             'members' => $members,

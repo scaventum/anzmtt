@@ -45,4 +45,13 @@ class PageRepository
 
     return $pages;
   }
+
+  public function getConferencesPages(bool $published = true): Collection
+  {
+    $pages = Page::with('conference')->conferences()->when($published, function (Builder $query) {
+      $query->published();
+    })->orderByDesc('date_from')->get();
+
+    return $pages;
+  }
 }

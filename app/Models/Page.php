@@ -85,7 +85,13 @@ class Page extends Model
     #[Scope]
     protected function news(Builder $query): void
     {
-        $query->where('type', 'news');
+        $query->where('type', static::TYPE_NEWS);
+    }
+
+    #[Scope]
+    protected function conferences(Builder $query): void
+    {
+        $query->where('type', static::TYPE_CONFERENCES);
     }
 
     #[Scope]

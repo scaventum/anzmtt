@@ -27,6 +27,7 @@ const BLOCK_COMPONENTS = {
 export default function Block({
     item,
     newsPages,
+    conferencesPages,
     executiveCommitteeMembers,
     advisoryBoardMembers,
     members,
@@ -61,6 +62,7 @@ export default function Block({
                 <BlockComponent
                     data={data}
                     newsPages={newsPages}
+                    conferencesPages={conferencesPages}
                     executiveCommitteeMembers={executiveCommitteeMembers}
                     advisoryBoardMembers={advisoryBoardMembers}
                     members={members}

@@ -11,6 +11,7 @@ export default function Page({
     showBreadcrumbs,
     showHeaders,
     newsPages,
+    conferencesPages,
     executiveCommitteeMembers,
     advisoryBoardMembers,
     members,
@@ -46,6 +47,7 @@ export default function Page({
                         key={index}
                         item={item}
                         newsPages={newsPages}
+                        conferencesPages={conferencesPages}
                         executiveCommitteeMembers={executiveCommitteeMembers}
                         advisoryBoardMembers={advisoryBoardMembers}
                         members={members}
