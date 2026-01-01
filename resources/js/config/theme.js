@@ -8,7 +8,7 @@ const emerald = {
     },
     bg: {
         primary: "bg-emerald-800",
-        secondary: "bg-emerald-500",
+        secondary: "bg-emerald-300",
         neutral: "bg-emerald-50",
         default: "bg-white",
         hover: "hover:bg-emerald-500",
@@ -34,7 +34,7 @@ const rose = {
     },
     bg: {
         primary: "bg-rose-800",
-        secondary: "bg-rose-500",
+        secondary: "bg-rose-300",
         neutral: "bg-rose-50",
         default: "bg-white",
         hover: "hover:bg-rose-500",

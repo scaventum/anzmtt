@@ -103,14 +103,10 @@ export default function Navigation({
                 );
             }
 
-            // Desktop
+            // Desktop (CSS hover)
             return (
-                <div
-                    key={index}
-                    className="relative"
-                    onMouseEnter={() => setHoveredSubmenu(index)}
-                    onMouseLeave={() => setHoveredSubmenu(null)}
-                >
+                <div key={index} className="relative group">
+                    {/* Main menu item */}
                     <Link
                         href={`/${item.path}`}
                         className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
@@ -121,9 +117,7 @@ export default function Navigation({
                     >
                         <span>{item.label}</span>
                         <svg
-                            className={`ml-1 h-4 w-4 transition-transform duration-200 ${
-                                hoveredSubmenu === index ? "rotate-180" : ""
-                            }`}
+                            className="ml-1 h-4 w-4 transition-transform duration-200 group-hover:rotate-180"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -137,30 +131,33 @@ export default function Navigation({
                         </svg>
                     </Link>
 
-                    {hoveredSubmenu === index && (
-                        <div className="absolute left-0 mt-1 w-48 bg-white rounded-md shadow-lg py-1 z-10 border border-gray-100">
-                            {item.submenu.map((subItem, subIndex) => {
-                                const isSubActive = isActive(
-                                    `/${subItem.path}`
-                                );
+                    {/* Submenu */}
+                    <div className="absolute left-0 top-full z-20 hidden group-hover:block">
+                        {/* hover-safe padding */}
+                        <div className="pt-2">
+                            <div className="w-48 bg-white rounded-md shadow-lg py-1 border border-gray-100">
+                                {item.submenu.map((subItem, subIndex) => {
+                                    const isSubActive = isActive(
+                                        `/${subItem.path}`
+                                    );
 
-                                return (
-                                    <Link
-                                        key={subIndex}
-                                        href={`/${subItem.path}`}
-                                        className={`block px-4 py-2 text-sm ${
-                                            isSubActive
-                                                ? `${theme.text.light} ${theme.bg.primary}`
-                                                : `${theme.text.default} ${theme.text.hover} ${theme.bg.hover}`
-                                        }`}
-                                        onClick={() => setHoveredSubmenu(null)}
-                                    >
-                                        {subItem.label}
-                                    </Link>
-                                );
-                            })}
+                                    return (
+                                        <Link
+                                            key={subIndex}
+                                            href={`/${subItem.path}`}
+                                            className={`block px-4 py-2 text-sm ${
+                                                isSubActive
+                                                    ? `${theme.text.light} ${theme.bg.primary}`
+                                                    : `${theme.text.default} ${theme.text.hover} ${theme.bg.hover}`
+                                            }`}
+                                        >
+                                            {subItem.label}
+                                        </Link>
+                                    );
+                                })}
+                            </div>
                         </div>
-                    )}
+                    </div>
                 </div>
             );
         }
