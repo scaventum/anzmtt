@@ -5,6 +5,7 @@ import NewsBlock from "@blocks/NewsBlock";
 import ConferencesBlock from "@blocks/ConferencesBlock";
 import QuoteBlock from "@blocks/QuoteBlock";
 import ContactBlock from "@blocks/ContactBlock";
+import AccordionBlock from "@blocks/AccordionBlock";
 import ErrorBlock from "@blocks/ErrorBlock";
 import ExecutiveCommitteeBlock from "@blocks/ExecutiveCommitteeBlock";
 import AdvisoryBoardBlock from "@blocks/AdvisoryBoardBlock";
@@ -17,6 +18,7 @@ const BLOCK_COMPONENTS = {
     news: NewsBlock,
     quote: QuoteBlock,
     contact: ContactBlock,
+    accordion: AccordionBlock,
     executiveCommittee: ExecutiveCommitteeBlock,
     advisoryBoard: AdvisoryBoardBlock,
     memberDirectory: MemberDirectoryBlock,

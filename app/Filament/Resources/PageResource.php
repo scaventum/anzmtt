@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\Blocks\AccordionBlock;
 use App\Filament\Resources\Blocks\AdvisoryBoardBlock;
 use App\Filament\Resources\Blocks\ConferencesBlock;
 use App\Filament\Resources\Blocks\ContactBlock;
@@ -134,6 +135,7 @@ class PageResource extends Resource
                                             ConferencesBlock::make(),
                                             QuoteBlock::make(),
                                             ContactBlock::make(),
+                                            AccordionBlock::make(),
                                             ExecutiveCommitteeBlock::make(),
                                             AdvisoryBoardBlock::make(),
                                             MemberDirectoryBlock::make(),
