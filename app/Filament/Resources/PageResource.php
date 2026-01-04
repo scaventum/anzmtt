@@ -77,6 +77,7 @@ class PageResource extends Resource
                                         ->unique(ignoreRecord: true)
                                         ->prefix('/')
                                         ->readOnly(fn(Get $get) => $get('type') !== 'general')
+                                        ->required()
                                         ->reactive(),
                                 ]),
 

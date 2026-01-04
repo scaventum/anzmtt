@@ -102,6 +102,29 @@ export default function Conference({ conference, t = defaultTheme }) {
                     )}
                 </div>
 
+                {/* Downloadable file */}
+                {conference.downloadables && (
+                    <div className="my-4">
+                        <a
+                            href={`/storage/${conference.downloadables}`}
+                            download
+                            className={`
+                                inline-flex items-center gap-1
+                                text-base font-medium
+                                ${t.text.primary}
+                                underline
+                                underline-offset-4
+                                hover:no-underline
+                                transition
+                                focus:outline-none focus:ring-2
+                                ${t.focus.primary}
+                            `}
+                        >
+                            Download informations
+                        </a>
+                    </div>
+                )}
+
                 {/* Information */}
                 {conference.information && (
                     <div

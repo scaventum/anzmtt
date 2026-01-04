@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Blocks;
 
 use Filament\Forms\Components\Builder\Block;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 
 class NewsBlock extends BaseBlock
 {
@@ -16,8 +17,9 @@ class NewsBlock extends BaseBlock
             TextInput::make('supertitle')
               ->maxLength(255),
             TextInput::make('title')
-              ->maxLength(255)
-              ->required(),
+              ->maxLength(255),
+            Toggle::make('moreNews')
+              ->default(true)
           ],
           parent::baseSchema()
         )

@@ -7,9 +7,19 @@ export default function NewsBlock({
     newsPages = [],
     theme = defaultTheme,
 }) {
-    const { title, supertitle } = data;
+    const { title, supertitle, moreNews } = data;
 
-    const latestNews = newsPages.slice(0, 9);
+    const latestNews = moreNews ? newsPages.slice(0, 9) : newsPages;
+
+    const formatDate = (date) => {
+        if (!date) return null;
+
+        return new Intl.DateTimeFormat("en-GB", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+        }).format(new Date(date));
+    };
 
     return (
         <section className="flex flex-col gap-8">
@@ -32,7 +42,7 @@ export default function NewsBlock({
                     return (
                         <Link
                             key={news.slug}
-                            href={`${news.slug}`}
+                            href={`/${news.slug}`}
                             className="group overflow-hidden rounded-xl bg-white shadow transition hover:shadow-lg"
                         >
                             {/* Image */}
@@ -45,13 +55,23 @@ export default function NewsBlock({
 
                             {/* Content */}
                             <div className="flex flex-col gap-2 p-4">
-                                <h3 className="text-lg font-semibold text-gray-900">
+                                <h3
+                                    className={`text-lg font-semibold ${theme.text.primary}`}
+                                >
                                     {news.title}
                                 </h3>
 
                                 {news.subtitle && (
                                     <p className="text-sm text-gray-600 line-clamp-3">
                                         {news.subtitle}
+                                    </p>
+                                )}
+
+                                {news.updated_at && (
+                                    <p
+                                        className={`text-sm ${theme.text.primary} line-clamp-3`}
+                                    >
+                                        {formatDate(news.updated_at)}
                                     </p>
                                 )}
                             </div>
@@ -61,14 +81,16 @@ export default function NewsBlock({
             </div>
 
             {/* Footer link */}
-            <div className="text-center">
-                <Link
-                    href="news"
-                    className={`inline-flex self-center items-center px-4 py-2 rounded-lg text-md font-semibold transition-all ${theme.bg.primary} ${theme.text.light} ${theme.bg.hover}`}
-                >
-                    More News
-                </Link>
-            </div>
+            {moreNews && (
+                <div className="text-center">
+                    <Link
+                        href="/news"
+                        className={`inline-flex self-center items-center px-4 py-2 rounded-lg text-md font-semibold transition-all ${theme.bg.primary} ${theme.text.light} ${theme.bg.hover}`}
+                    >
+                        More News
+                    </Link>
+                </div>
+            )}
         </section>
     );
 }

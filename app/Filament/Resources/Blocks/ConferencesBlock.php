@@ -16,8 +16,7 @@ class ConferencesBlock extends BaseBlock
             TextInput::make('supertitle')
               ->maxLength(255),
             TextInput::make('title')
-              ->maxLength(255)
-              ->required(),
+              ->maxLength(255),
           ],
           parent::baseSchema()
         )

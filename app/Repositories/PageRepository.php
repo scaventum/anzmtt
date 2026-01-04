@@ -37,11 +37,11 @@ class PageRepository
     })->exists();
   }
 
-  public function getNewsPages(int $limit = 9, bool $published = true): Collection
+  public function getNewsPages(bool $published = true): Collection
   {
     $pages = Page::news()->when($published, function (Builder $query) {
       $query->published();
-    })->orderByDesc('updated_at')->limit($limit)->get();
+    })->orderByDesc('updated_at')->get();
 
     return $pages;
   }
