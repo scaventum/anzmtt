@@ -32,7 +32,7 @@ class PageController extends Controller
 
     public function show()
     {
-        $slug = request()->slug ?? '/';
+        $slug = request()->slug ?? 'home';
 
         // Get navigation items
         $navigationItems = $this->navigationRepository->getItems();
@@ -85,7 +85,7 @@ class PageController extends Controller
 
     public function preview()
     {
-        $slug = request()->slug ?? '/';
+        $slug = request()->slug ?? 'home';
 
         // Get navigation items
         $navigationItems = $this->navigationRepository->getItems();
