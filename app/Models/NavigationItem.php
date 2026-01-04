@@ -12,6 +12,22 @@ class NavigationItem extends Model
     'sort_order',
   ];
 
+  protected static function booted()
+  {
+    static::creating(function ($item) {
+      if (is_null($item->sort_order)) {
+        // Determine the parent id
+        $parentId = $item->parent_id;
+
+        // Find the max sort_order among siblings (or top-level items if no parent)
+        $maxSort = self::where('parent_id', $parentId)->max('sort_order');
+
+        // Assign next integer
+        $item->sort_order = $maxSort ? $maxSort + 1 : 1;
+      }
+    });
+  }
+
   // Each navigation item belongs to a Page
   public function page()
   {

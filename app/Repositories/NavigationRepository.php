@@ -2,104 +2,51 @@
 
 namespace App\Repositories;
 
+use App\Models\NavigationItem;
 use Illuminate\Support\Collection;
 
 class NavigationRepository
 {
-  // @temp: get items from actual CMS
-  private const ITEMS = [
-    [
-      'label' => 'About',
-      'path' => 'about',
-      'submenu' => [
-        [
-          'label' => 'Executive Committee',
-          'path' => 'about/executive-committee',
-        ],
-        [
-          'label' => 'Advisory Board',
-          'path' => 'about/advisory-board',
-        ],
-        [
-          'label' => 'F.A.Q',
-          'path' => 'about/faq',
-        ],
-      ],
-    ],
-    [
-      'label' => 'Announcements',
-      'path' => 'announcements',
-      'submenu' => [
-        [
-          'label' => 'Call For Papers',
-          'path' => 'announcements/call-for-papers',
-        ],
-        [
-          'label' => 'News',
-          'path' => 'announcements/news',
-        ],
-        [
-          'label' => 'Upcoming Events',
-          'path' => 'announcements/events',
-        ],
-      ],
-    ],
-    [
-      'label' => 'Research & Networks',
-      'path' => 'research-networks',
-      'submenu' => [
-        [
-          'label' => 'About',
-          'path' => 'research-networks/about'
-        ],
-        [
-          'label' => 'Team / Governance',
-          'path' => 'research-networks/team'
-        ],
-        [
-          'label' => 'Initiatives',
-          'path' => 'research-networks/initiatives'
-        ],
-        [
-          'label' => 'Member Directory',
-          'path' => 'research-networks/member-directory',
-        ],
-        [
-          'label' => 'Member Area',
-          'path' => 'research-networks/member-area'
-        ],
-        [
-          'label' => 'Resources / Outputs',
-          'path' => 'research-networks/resources',
-        ],
-      ],
-    ],
-    [
-      'label' => 'Conferences',
-      'path' => 'conferences',
-      'submenu' => [
-        [
-          'label' => 'MAP 1 (2025)',
-          'path' => 'conferences/map-1-2025'
-        ],
-        [
-          'label' => 'MAP 2 (2026)',
-          'path' => 'conferences/map-2-2026'
-        ],
-        [
-          'label' => 'MAP 3 (2027)',
-          'path' => 'conferences/map-3-2027'
-        ],
-      ],
-    ],
-  ];
-
+  /**
+   * Get all navigation items as a hierarchical array
+   */
   public function getItems(): array
   {
-    // @temp: get items from actual CMS
-    return static::ITEMS;
+    // Get top-level items sorted by sort_order, with children eager loaded
+    $items = NavigationItem::with(['page', 'children.page'])
+      ->whereNull('parent_id')
+      ->orderBy('sort_order')
+      ->get();
+
+    // Convert to nested array
+    return $items->map(function ($item) {
+      return $this->formatItem($item);
+    })->toArray();
   }
 
+  /**
+   * Recursive helper to format a NavigationItem
+   */
+  private function formatItem(NavigationItem $item): array
+  {
+    $array = [
+      'label' => $item->page?->title ?? 'Untitled',
+      'path' => $item->page?->slug ?? '#', // assuming your Page model has a slug
+    ];
+
+    // Include children if they exist
+    if ($item->children->isNotEmpty()) {
+      $array['submenu'] = $item->children->map(function ($child) {
+        return $this->formatItem($child);
+      })->toArray();
+    }
+
+    return $array;
+  }
+
+  /**
+   * Compose breadcrumbs by slug
+   */
   public function composeBreadcrumbBySlug(string $slug): Collection
   {
     $breadcrumbs = collect();
@@ -109,25 +56,20 @@ class NavigationRepository
       return $breadcrumbs;
     }
 
-    // Separate slug by segments
+    // Split slug into segments
     $segments = explode('/', $slug);
 
     $currentSlug = '';
 
     foreach ($segments as $segment) {
-      // Join current segment with previous segment
       $currentSlug .= $segment ? "/{$segment}" : '';
 
-      // Human readable breadcrumb label
       $label = $segment ? ucwords(str_replace('-', ' ', $segment)) : 'Home';
-
-      // Skip current page from being a link
       $isLast = $currentSlug === "/{$slug}";
 
-      // add breadcrumb to collection
       $breadcrumbs->add((object)[
         'label' => $label,
-        'href' => $isLast ? null : $currentSlug ??  '/',
+        'href' => $isLast ? null : $currentSlug ?? '/',
       ]);
     }
 
