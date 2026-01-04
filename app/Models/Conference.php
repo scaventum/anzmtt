@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
 class Conference extends Model
@@ -20,8 +21,21 @@ class Conference extends Model
         'page_id',
     ];
 
+    protected $casts = [
+        'date_from' => 'date',
+    ];
+
+    protected $appends = ['upcoming'];
+
     public function page()
     {
         return $this->belongsTo(Page::class);
+    }
+
+    public function upcoming(): Attribute
+    {
+        return Attribute::get(
+            fn(): bool => $this->date_from?->isFuture() ?? false
+        );
     }
 }

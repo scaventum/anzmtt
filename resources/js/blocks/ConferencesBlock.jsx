@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { defaultTheme } from "@/config/theme";
 import { Link } from "@inertiajs/react";
 
@@ -53,8 +54,14 @@ export default function ConferencesBlock({
                         <Link
                             key={conference.slug}
                             href={conference.slug}
-                            className="group overflow-hidden rounded-xl bg-white shadow transition hover:shadow-lg"
+                            className="group relative overflow-hidden rounded-xl bg-white shadow transition hover:shadow-lg"
                         >
+                            {conferenceDetail?.upcoming && (
+                                <span className="absolute right-0 top-0 z-10 rounded-bl-lg bg-rose-400 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
+                                    Upcoming
+                                </span>
+                            )}
+
                             {/* Image */}
                             <div
                                 className={`h-48 w-full bg-cover bg-center transition-transform duration-300 group-hover:scale-105 ${theme.bg.secondary}`}
@@ -77,13 +84,25 @@ export default function ConferencesBlock({
                                     </p>
                                 )}
 
-                                {conferenceDetail.date_from && (
-                                    <p
-                                        className={`text-sm ${theme.text.primary} line-clamp-3`}
-                                    >
-                                        {formatDate(conferenceDetail.date_from)}
-                                    </p>
-                                )}
+                                <div className="flex justify-between">
+                                    {conferenceDetail.date_from && (
+                                        <p
+                                            className={`text-sm ${theme.text.primary} line-clamp-3`}
+                                        >
+                                            {formatDate(
+                                                conferenceDetail.date_from
+                                            )}
+                                        </p>
+                                    )}
+
+                                    {conferenceDetail.location && (
+                                        <p
+                                            className={`text-xs text-gray-600 line-clamp-3`}
+                                        >
+                                            {conferenceDetail.location}
+                                        </p>
+                                    )}
+                                </div>
                             </div>
                         </Link>
                     );

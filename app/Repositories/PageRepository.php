@@ -52,6 +52,11 @@ class PageRepository
       $query->published();
     })->orderByDesc('date_from')->get();
 
+    // $pages = $pages->map(function (Page $page) {
+    //   $page->upcoming = optional($page->conference)->upcoming;
+    //   return $page;
+    // })
+
     return $pages;
   }
 }
