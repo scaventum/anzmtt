@@ -173,12 +173,12 @@ class PageResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->defaultSort('updated_at', 'desc')
+            ->defaultSort('type')
             ->defaultGroup('type')
             ->columns([
                 TextColumn::make('title')->searchable(),
                 TextColumn::make('slug')->searchable(),
-                TextColumn::make('updated_at')->sortable(),
+                TextColumn::make('updated_at'),
                 IconColumn::make('published')->boolean(),
             ])
             ->filters([
