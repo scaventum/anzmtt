@@ -13,6 +13,7 @@ export default function Page({
     showHeaders,
     newsPages,
     conferencesPages,
+    callForPapersPages,
     executiveCommitteeMembers,
     advisoryBoardMembers,
     members,
@@ -56,6 +57,7 @@ export default function Page({
                         item={item}
                         newsPages={newsPages}
                         conferencesPages={conferencesPages}
+                        callForPapersPages={callForPapersPages}
                         executiveCommitteeMembers={executiveCommitteeMembers}
                         advisoryBoardMembers={advisoryBoardMembers}
                         members={members}

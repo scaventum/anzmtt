@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\Blocks\AccordionBlock;
 use App\Filament\Resources\Blocks\AdvisoryBoardBlock;
+use App\Filament\Resources\Blocks\CallForPapersPagesBlock;
 use App\Filament\Resources\Blocks\ConferencesBlock;
 use App\Filament\Resources\Blocks\ContactBlock;
 use App\Filament\Resources\Blocks\ExecutiveCommitteeBlock;
@@ -95,6 +96,7 @@ class PageResource extends Resource
                                             UnorderedListBlock::make(),
                                             NewsBlock::make(),
                                             ConferencesBlock::make(),
+                                            CallForPapersPagesBlock::make(),
                                             QuoteBlock::make(),
                                             ContactBlock::make(),
                                             AccordionBlock::make(),

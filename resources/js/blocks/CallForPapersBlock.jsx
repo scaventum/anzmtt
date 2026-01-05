@@ -70,11 +70,21 @@ export default function CallForPapers({ callForPapers, t = defaultTheme }) {
                     {(callForPapers.publication_date_from ||
                         callForPapers.publication_date_to) && (
                         <MetaItem icon={Calendar} label="Publication Period">
-                            {formatDate(callForPapers.publication_date_from)}
-                            {callForPapers.publication_date_to &&
-                                ` – ${formatDate(
-                                    callForPapers.publication_date_to
-                                )}`}
+                            {callForPapers.ongoing ? (
+                                <span className="font-semibold text-emerald-700">
+                                    Ongoing
+                                </span>
+                            ) : (
+                                <>
+                                    {formatDate(
+                                        callForPapers.publication_date_from
+                                    )}
+                                    {callForPapers.publication_date_to &&
+                                        ` – ${formatDate(
+                                            callForPapers.publication_date_to
+                                        )}`}
+                                </>
+                            )}
                         </MetaItem>
                     )}
 

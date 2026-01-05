@@ -57,7 +57,7 @@ class PageRepository
 
   public function getCallForPapersPages(bool $published = true): Collection
   {
-    $pages = Page::with('conference')->callForPapersPages()->when($published, function (Builder $query) {
+    $pages = Page::with('callForPapers')->callForPapersPages()->when($published, function (Builder $query) {
       $query->published();
     })->orderByDesc('submission_deadline')->get();
 

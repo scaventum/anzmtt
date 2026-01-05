@@ -30,14 +30,6 @@ class NavigationItemResource extends Resource
                     ->searchable()
                     ->required(),
 
-                Select::make('parent_id')
-                    ->label('Parent')
-                    ->options(fn() => NavigationItem::with('page')->whereNull('parent_id')->get()
-                        ->pluck('page.short_title', 'id'))
-                    ->searchable()
-                    ->nullable()
-                    ->helperText('Leave empty for top-level items'),
-
                 TextInput::make('sort_order')
                     ->numeric()
                     ->readOnly(),

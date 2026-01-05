@@ -2,14 +2,15 @@ import React from "react";
 import ParagraphBlock from "@blocks/ParagraphBlock";
 import UnorderedListBlock from "@blocks/UnorderedListBlock";
 import NewsBlock from "@blocks/NewsBlock";
-import ConferencesBlock from "@blocks/ConferencesBlock";
 import QuoteBlock from "@blocks/QuoteBlock";
 import ContactBlock from "@blocks/ContactBlock";
 import AccordionBlock from "@blocks/AccordionBlock";
-import ErrorBlock from "@blocks/ErrorBlock";
 import ExecutiveCommitteeBlock from "@blocks/ExecutiveCommitteeBlock";
 import AdvisoryBoardBlock from "@blocks/AdvisoryBoardBlock";
 import MemberDirectoryBlock from "@blocks/MemberDirectoryBlock";
+import ConferencesBlock from "@blocks/ConferencesBlock";
+import CallForPapersPagesBlock from "@blocks/CallForPapersPagesBlock";
+import ErrorBlock from "@blocks/ErrorBlock";
 import { defaultTheme } from "@/config/theme";
 
 const BLOCK_COMPONENTS = {
@@ -22,14 +23,16 @@ const BLOCK_COMPONENTS = {
     executiveCommittee: ExecutiveCommitteeBlock,
     advisoryBoard: AdvisoryBoardBlock,
     memberDirectory: MemberDirectoryBlock,
-    error: ErrorBlock,
     conferences: ConferencesBlock,
+    callForPapersPages: CallForPapersPagesBlock,
+    error: ErrorBlock,
 };
 
 export default function Block({
     item,
     newsPages,
     conferencesPages,
+    callForPapersPages,
     executiveCommitteeMembers,
     advisoryBoardMembers,
     members,
@@ -65,6 +68,7 @@ export default function Block({
                     data={data}
                     newsPages={newsPages}
                     conferencesPages={conferencesPages}
+                    callForPapersPages={callForPapersPages}
                     executiveCommitteeMembers={executiveCommitteeMembers}
                     advisoryBoardMembers={advisoryBoardMembers}
                     members={members}
