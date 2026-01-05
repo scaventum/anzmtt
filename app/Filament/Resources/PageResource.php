@@ -12,21 +12,20 @@ use App\Filament\Resources\Blocks\NewsBlock;
 use App\Filament\Resources\Blocks\ParagraphBlock;
 use App\Filament\Resources\Blocks\QuoteBlock;
 use App\Filament\Resources\Blocks\UnorderedListBlock;
+use App\Filament\Resources\Fieldsets\CallForPapersFieldset;
+use App\Filament\Resources\Fieldsets\ConferenceFieldset;
 use App\Filament\Resources\PageResource\Pages\CreatePage;
 use App\Filament\Resources\PageResource\Pages\EditPage;
 use App\Filament\Resources\PageResource\Pages\ListPages;
 use App\Models\Page;
 use Filament\Forms\Components\Builder;
-use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
@@ -82,46 +81,9 @@ class PageResource extends Resource
                                         ->reactive(),
                                 ]),
 
-
-                            Fieldset::make('Conference')
-                                ->relationship('conference')
-                                ->visible(fn(Get $get) => $get('type') === Page::TYPE_CONFERENCES)
-                                ->schema([
-                                    Grid::make(2)->schema([
-                                        TextInput::make('full_name')
-                                            ->label('Conference Name')
-                                            ->columnSpanFull(),
-
-                                        TextInput::make('location'),
-
-                                        TextInput::make('cost'),
-
-                                        DatePicker::make('date_from')
-                                            ->label('Start Date'),
-
-                                        DatePicker::make('date_to')
-                                            ->label('End Date'),
-
-                                        TimePicker::make('time_from')
-                                            ->label('Start Time'),
-
-                                        TimePicker::make('time_to')
-                                            ->label('End Time'),
-                                    ]),
-
-                                    RichEditor::make('information')
-                                        ->required()
-                                        ->columnSpanFull(),
-
-                                    TextInput::make('registration_link')
-                                        ->url()
-                                        ->columnSpanFull(),
-
-                                    FileUpload::make('downloadables')
-                                        ->maxSize(2048)
-                                        ->directory('conference')
-                                        ->columnSpanFull(),
-                                ]),
+                            // Specific page type fields
+                            ConferenceFieldset::make(),
+                            CallForPapersFieldset::make(),
 
                             Fieldset::make('Content')
                                 ->schema([

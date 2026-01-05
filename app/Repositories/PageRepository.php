@@ -10,7 +10,7 @@ class PageRepository
 {
   public function getPageDataBySlug(string $slug, bool $published = true): object
   {
-    $page = Page::with('conference')->slug($slug)->when($published, function (Builder $query) {
+    $page = Page::with(['conference', 'callForPapers'])->slug($slug)->when($published, function (Builder $query) {
       $query->published();
     })->first();
 
@@ -52,10 +52,14 @@ class PageRepository
       $query->published();
     })->orderByDesc('date_from')->get();
 
-    // $pages = $pages->map(function (Page $page) {
-    //   $page->upcoming = optional($page->conference)->upcoming;
-    //   return $page;
-    // })
+    return $pages;
+  }
+
+  public function getCallForPapersPages(bool $published = true): Collection
+  {
+    $pages = Page::with('conference')->callForPapersPages()->when($published, function (Builder $query) {
+      $query->published();
+    })->orderByDesc('submission_deadline')->get();
 
     return $pages;
   }

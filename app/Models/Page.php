@@ -13,10 +13,13 @@ class Page extends Model
     const TYPE_GENERAL = 'general';
     const TYPE_NEWS = 'news';
     const TYPE_CONFERENCES = 'conferences';
+    const TYPE_CALL_FOR_PAPERS = 'call-for-papers';
+
     const TYPES = [
         self::TYPE_GENERAL => 'General',
         self::TYPE_NEWS => 'News',
         self::TYPE_CONFERENCES => 'Conferences',
+        self::TYPE_CALL_FOR_PAPERS => 'Call for papers',
     ];
 
     protected $fillable = [
@@ -47,6 +50,11 @@ class Page extends Model
     public function conference()
     {
         return $this->hasOne(Conference::class);
+    }
+
+    public function callForPapers()
+    {
+        return $this->hasOne(CallForPapers::class);
     }
 
     public function previewUrl(): Attribute
@@ -99,6 +107,12 @@ class Page extends Model
     protected function conferences(Builder $query): void
     {
         $query->where('type', static::TYPE_CONFERENCES);
+    }
+
+    #[Scope]
+    protected function callForPapersPages(Builder $query): void
+    {
+        $query->where('type', static::TYPE_CALL_FOR_PAPERS);
     }
 
     #[Scope]
