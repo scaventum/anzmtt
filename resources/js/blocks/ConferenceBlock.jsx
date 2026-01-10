@@ -141,8 +141,27 @@ export default function Conference({ conference, t = defaultTheme }) {
                 )}
 
                 {/* CTA */}
-                {conference.registration_link && (
-                    <div className="flex">
+                {conference.call_for_abstract_link && (
+                    <div className="flex gap-2">
+                        <a
+                            href={conference.call_for_abstract_link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`
+                                inline-flex items-center
+                                px-8 py-4
+                                rounded-lg
+                                text-lg font-semibold
+                                ${t.text.light}
+                                ${t.bg.primary}
+                                ${t.bg.hover}
+                                transition
+                                focus:outline-none focus:ring-2
+                                ${t.focus.primary}
+                            `}
+                        >
+                            Call for abstract
+                        </a>
                         <a
                             href={conference.registration_link}
                             target="_blank"
@@ -160,7 +179,7 @@ export default function Conference({ conference, t = defaultTheme }) {
                                 ${t.focus.primary}
                             `}
                         >
-                            Register Now
+                            Register here
                         </a>
                     </div>
                 )}

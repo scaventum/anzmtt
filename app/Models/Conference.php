@@ -17,6 +17,7 @@ class Conference extends Model
         'time_to',
         'information',
         'registration_link',
+        'call_for_abstract_link',
         'downloadables',
         'page_id',
     ];

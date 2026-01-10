@@ -47,6 +47,10 @@ class ConferenceFieldset
           ->required()
           ->columnSpanFull(),
 
+        TextInput::make('call_for_abstract_link')
+          ->url()
+          ->columnSpanFull(),
+
         TextInput::make('registration_link')
           ->url()
           ->columnSpanFull(),
