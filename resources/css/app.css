@@ -16,6 +16,7 @@
 }
 
 /* Make all body text serif by default */
-body {
-    font-family: theme("fontFamily.serif");
+/* app.css */
+.rich * {
+    all: revert;
 }

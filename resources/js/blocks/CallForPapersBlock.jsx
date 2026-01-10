@@ -112,7 +112,7 @@ export default function CallForPapers({ callForPapers, t = defaultTheme }) {
                 {callForPapers.information && (
                     <div
                         className={`
-                            prose
+                            rich
                             max-w-none
                             mb-10
                             ${t.fontFamily.body}

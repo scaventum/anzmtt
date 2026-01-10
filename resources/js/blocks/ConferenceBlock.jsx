@@ -129,10 +129,10 @@ export default function Conference({ conference, t = defaultTheme }) {
                 {conference.information && (
                     <div
                         className={`
-                            prose
                             max-w-none
                             mb-10
                             ${t.fontFamily.body}
+                            rich
                         `}
                         dangerouslySetInnerHTML={{
                             __html: conference.information,
