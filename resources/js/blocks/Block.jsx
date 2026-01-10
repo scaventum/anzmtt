@@ -11,6 +11,7 @@ import MemberDirectoryBlock from "@blocks/MemberDirectoryBlock";
 import ConferencesBlock from "@blocks/ConferencesBlock";
 import CallForPapersPagesBlock from "@blocks/CallForPapersPagesBlock";
 import ErrorBlock from "@blocks/ErrorBlock";
+import RichEditorBlock from "@blocks/RichEditorBlock";
 import { defaultTheme } from "@/config/theme";
 
 const BLOCK_COMPONENTS = {
@@ -20,6 +21,7 @@ const BLOCK_COMPONENTS = {
     quote: QuoteBlock,
     contact: ContactBlock,
     accordion: AccordionBlock,
+    richEditor: RichEditorBlock,
     executiveCommittee: ExecutiveCommitteeBlock,
     advisoryBoard: AdvisoryBoardBlock,
     memberDirectory: MemberDirectoryBlock,

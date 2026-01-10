@@ -12,6 +12,7 @@ use App\Filament\Resources\Blocks\MemberDirectoryBlock;
 use App\Filament\Resources\Blocks\NewsBlock;
 use App\Filament\Resources\Blocks\ParagraphBlock;
 use App\Filament\Resources\Blocks\QuoteBlock;
+use App\Filament\Resources\Blocks\RichEditorBlock;
 use App\Filament\Resources\Blocks\UnorderedListBlock;
 use App\Filament\Resources\Fieldsets\CallForPapersFieldset;
 use App\Filament\Resources\Fieldsets\ConferenceFieldset;
@@ -100,6 +101,7 @@ class PageResource extends Resource
                                             QuoteBlock::make(),
                                             ContactBlock::make(),
                                             AccordionBlock::make(),
+                                            RichEditorBlock::make(),
                                             ExecutiveCommitteeBlock::make(),
                                             AdvisoryBoardBlock::make(),
                                             MemberDirectoryBlock::make(),
