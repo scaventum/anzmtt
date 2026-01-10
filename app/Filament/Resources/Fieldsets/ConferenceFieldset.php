@@ -56,7 +56,7 @@ class ConferenceFieldset
           ->columnSpanFull(),
 
         FileUpload::make('downloadables')
-          ->maxSize(2048)
+          ->maxSize(20480)
           ->directory('conference')
           ->columnSpanFull(),
       ]);
