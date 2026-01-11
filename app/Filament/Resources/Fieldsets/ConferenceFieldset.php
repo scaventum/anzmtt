@@ -56,7 +56,7 @@ class ConferenceFieldset
           ->columnSpanFull(),
 
         FileUpload::make('downloadables')
-          ->maxSize(20480)
+          ->disk(config('app.env') === 'local' ? 'local' : 's3')
           ->directory('conference')
           ->columnSpanFull(),
       ]);
