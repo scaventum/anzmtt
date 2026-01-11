@@ -58,6 +58,8 @@ class ConferenceFieldset
         FileUpload::make('downloadables')
           ->disk(config('app.env') === 'local' ? 'local' : 's3')
           ->directory('conference')
+          ->visibility('general')
+          ->storeFileNamesInDatabase()
           ->columnSpanFull(),
       ]);
   }
