@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Conference extends Model
 {
@@ -26,7 +27,7 @@ class Conference extends Model
         'date_from' => 'date',
     ];
 
-    protected $appends = ['upcoming'];
+    protected $appends = ['upcoming', 'downloadable_url'];
 
     public function page()
     {
@@ -37,6 +38,13 @@ class Conference extends Model
     {
         return Attribute::get(
             fn(): bool => $this->date_from?->isFuture() ?? false
+        );
+    }
+
+    public function downloadableUrl(): Attribute
+    {
+        return Attribute::get(
+            fn() => $this->downloadables ? Storage::disk('s3')->temporaryUrl($this->downloadables, now()->addMinutes(10)) : null
         );
     }
 }

@@ -103,11 +103,11 @@ export default function Conference({ conference, t = defaultTheme }) {
                 </div>
 
                 {/* Downloadable file */}
-                {conference.downloadables && (
+                {conference.downloadable_url && (
                     <div className="my-4">
                         <a
-                            href={`/storage/${conference.downloadables}`}
-                            download
+                            href={conference.downloadable_url}
+                            target="_blank"
                             className={`
                                 inline-flex items-center gap-1
                                 text-base font-medium
