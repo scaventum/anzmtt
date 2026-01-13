@@ -20,19 +20,20 @@ use App\Filament\Resources\PageResource\Pages\CreatePage;
 use App\Filament\Resources\PageResource\Pages\EditPage;
 use App\Filament\Resources\PageResource\Pages\ListPages;
 use App\Models\Page;
+use BackedEnum;
+use Filament\Actions\Action;
 use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Resources\Resource;
-use Filament\Tables\Actions\Action;
+use Filament\Schemas\Components\Fieldset;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -44,17 +45,15 @@ class PageResource extends Resource
 {
     protected static ?string $model = Page::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-window';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-window';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $form): Schema
     {
         return $form->schema([
             Grid::make()
                 ->schema([
                     Section::make('General')
                         ->schema([
-
-
                             Fieldset::make('Title')
                                 ->schema([
                                     TextInput::make('title')
@@ -190,7 +189,7 @@ class PageResource extends Resource
             ])
             ->recordAction(null) // disable modal 
             ->recordUrl(fn($record) => static::getUrl('edit', ['record' => $record]))
-            ->actions([
+            ->recordActions([
                 Action::make('preview')
                     ->icon('heroicon-o-eye')
                     ->url(fn(Page $record): string => $record->preview_url)

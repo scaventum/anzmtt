@@ -55,12 +55,17 @@ class ConferenceFieldset
           ->url()
           ->columnSpanFull(),
 
-        SpatieMediaLibraryFileUpload::make('downloadables')
-          ->disk(config('filesystems.default'))
-          ->collection('conference-downloadables')
-          ->preserveFilenames()
-          ->maxSize(20480)
-          ->columnSpanFull(),
+        // SpatieMediaLibraryFileUpload::make('downloadables')
+        //   ->disk(config('filesystems.default'))
+        //   ->collection('conference-downloadables')
+        //   ->preserveFilenames()
+        //   ->maxSize(20480)
+        //   ->columnSpanFull(),
+
+        //       MediaManagerPicker::make('media')
+        // ->multiple()
+        // ->collection('products')
+        // ->responsiveImages();
       ]);
   }
 }

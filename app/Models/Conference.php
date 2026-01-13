@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
+use TomatoPHP\FilamentMediaManager\Traits\InteractsWithMediaFolders;
 
-class Conference extends Model implements HasMedia
+class Conference extends Model
 {
-    use InteractsWithMedia;
+    use InteractsWithMediaFolders;
 
     protected $fillable = [
         'full_name',
