@@ -6,9 +6,9 @@ namespace App\Filament\Resources\Fieldsets;
 use App\Models\Page;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Fieldset;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Get;
@@ -55,10 +55,11 @@ class ConferenceFieldset
           ->url()
           ->columnSpanFull(),
 
-        FileUpload::make('downloadables')
-          ->disk(config('app.env') === 'local' ? 'local' : 's3')
-          ->directory('conference')
-          ->visibility('general')
+        SpatieMediaLibraryFileUpload::make('downloadables')
+          ->disk(config('filesystems.default'))
+          ->collection('conference-downloadables')
+          ->preserveFilenames()
+          ->maxSize(20480)
           ->columnSpanFull(),
       ]);
   }
