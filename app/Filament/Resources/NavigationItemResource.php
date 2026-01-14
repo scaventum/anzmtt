@@ -34,7 +34,7 @@ class NavigationItemResource extends Resource
                 TextInput::make('sort_order')
                     ->numeric()
                     ->readOnly(),
-            ])->columns(2),
+            ])->columns(1)->columnSpan(1),
 
             Section::make('Children')->schema([
                 // Repeater for child items
@@ -51,9 +51,9 @@ class NavigationItemResource extends Resource
                         TextInput::make('sort_order')
                             ->numeric()
                             ->readOnly(),
-                    ])->columns(2),
-            ])
-        ]);
+                    ])->columns(2)
+            ])->columnSpan(2),
+        ])->columns(3);
     }
 
     public static function table(Table $table): Table

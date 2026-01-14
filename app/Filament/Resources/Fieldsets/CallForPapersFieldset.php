@@ -38,7 +38,8 @@ class CallForPapersFieldset
           DatePicker::make('submission_deadline')
             ->label('Submission Deadline')
             ->required(),
-        ]),
+        ])
+          ->columnSpanFull(),
 
         RichEditor::make('information')
           ->required()
