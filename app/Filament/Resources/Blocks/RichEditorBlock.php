@@ -19,7 +19,8 @@ class RichEditorBlock extends BaseBlock
               ->maxLength(255),
             TextInput::make('subtitle')
               ->maxLength(255),
-            RichEditor::make('content'),
+            RichEditor::make('content')
+              ->disableToolbarButtons(['attachFiles']),
           ],
           parent::baseSchema()
         )
