@@ -11,8 +11,8 @@ export default function advisoryBoardBlock({
             {/* Members Grid */}
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {advisoryBoardMembers.map((member) => {
-                    const avatar = member.avatar
-                        ? `/storage/${member.avatar}`
+                    const avatar = member.avatar_url
+                        ? member.avatar_url
                         : `https://ui-avatars.com/api/?name=${encodeURIComponent(
                               `${member.first_name} ${member.last_name}`
                           )}&background=ddd&color=555&rounded=true&size=128`;
