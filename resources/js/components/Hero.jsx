@@ -25,7 +25,7 @@ export default function Hero({
             {hasBackgroundImage && (
                 <div className="absolute inset-0 z-0">
                     <img
-                        src={`/storage/${backgroundImage.src}`}
+                        src={backgroundImage.src}
                         alt={title}
                         className="w-full h-full object-cover"
                     />

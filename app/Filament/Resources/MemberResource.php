@@ -12,10 +12,10 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\FileUpload;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\ImageColumn;
+use TomatoPHP\FilamentMediaManager\Form\MediaManagerPicker;
 
 class MemberResource extends Resource
 {
@@ -29,28 +29,30 @@ class MemberResource extends Resource
     {
         return $form
             ->schema([
-                Grid::make(2)->schema([
-                    TextInput::make('first_name')
-                        ->required()
-                        ->maxLength(255),
+                Grid::make(2)
+                    ->columnSpanFull()
+                    ->schema([
+                        TextInput::make('first_name')
+                            ->required()
+                            ->maxLength(255),
 
-                    TextInput::make('last_name')
-                        ->maxLength(255),
+                        TextInput::make('last_name')
+                            ->maxLength(255),
 
-                    TextInput::make('email')
-                        ->email()
-                        ->required()
-                        ->maxLength(255),
+                        TextInput::make('email')
+                            ->email()
+                            ->required()
+                            ->maxLength(255),
 
-                    TextInput::make('title')
-                        ->maxLength(255),
+                        TextInput::make('title')
+                            ->maxLength(255),
 
-                    TextInput::make('role')
-                        ->maxLength(255),
+                        TextInput::make('role')
+                            ->maxLength(255),
 
-                    TextInput::make('organisation')
-                        ->maxLength(255),
-                ]),
+                        TextInput::make('organisation')
+                            ->maxLength(255),
+                    ]),
 
                 CheckboxList::make('types')
                     ->label('Member Types')
@@ -80,15 +82,13 @@ class MemberResource extends Resource
                     ->columnSpanFull(),
 
                 DateTimePicker::make('last_active_at')
+                    ->columnSpanFull()
                     ->label('Last Active At'),
 
-                FileUpload::make('avatar')
-                    ->label('Avatar')
-                    ->image()
-                    ->directory('members/avatars')
-                    ->imagePreviewHeight('150')
-                    ->maxSize(1024)
-                    ->columnSpanFull(),
+                MediaManagerPicker::make('avatar')
+                    ->single()
+                    ->collection('member-avatars')
+                    ->columnSpanFull()
             ]);
     }
 
@@ -96,7 +96,7 @@ class MemberResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('avatar')
+                ImageColumn::make('avatar_url')
                     ->label('')
                     ->circular()
                     ->size(40)

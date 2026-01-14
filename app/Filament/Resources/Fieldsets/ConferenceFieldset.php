@@ -46,6 +46,7 @@ class ConferenceFieldset
         )->columnSpanFull(),
 
         RichEditor::make('information')
+          ->disableToolbarButtons(['attachFiles'])
           ->required()
           ->columnSpanFull(),
 
@@ -60,6 +61,7 @@ class ConferenceFieldset
         MediaManagerPicker::make('downloadables')
           ->collection('conference-downloadables')
           ->columnSpanFull()
+          ->single()
       ]);
   }
 }

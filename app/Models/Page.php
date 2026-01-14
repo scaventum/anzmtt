@@ -7,9 +7,13 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use TomatoPHP\FilamentMediaManager\Traits\InteractsWithMediaManager;
 
 class Page extends Model
 {
+
+    use InteractsWithMediaManager;
+
     const TYPE_GENERAL = 'general';
     const TYPE_NEWS = 'news';
     const TYPE_CONFERENCES = 'conferences';
@@ -81,6 +85,20 @@ class Page extends Model
     {
         return Attribute::make(
             get: fn() => $this->short_title ?? $this->title,
+        );
+    }
+
+    protected function hero(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value): ?array {
+                $hero = json_decode($value, true);
+                return array_merge($hero, [
+                    'backgroundImage' => (object) [
+                        'src' => $this->getMediaManagerUrl('page-hero-images')
+                    ]
+                ]);
+            }
         );
     }
 

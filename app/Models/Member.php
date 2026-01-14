@@ -4,13 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use TomatoPHP\FilamentMediaManager\Traits\InteractsWithMediaManager;
 
 class Member extends Model
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
+    use InteractsWithMediaManager;
 
     const TYPE_EXECUTIVE_COMMITTEE = 'executive-committee';
     const TYPE_ADVISORY_BOARD = 'advisory-board';
@@ -63,5 +67,12 @@ class Member extends Model
     protected function advisoryBoard(Builder $query)
     {
         $query->whereJsonContains('types', self::TYPE_ADVISORY_BOARD);
+    }
+
+    protected function avatarUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->getMediaManagerUrl('member-avatars')
+        );
     }
 }

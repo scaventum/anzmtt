@@ -161,7 +161,9 @@ class PageResource extends Resource
 
 
                                     MediaManagerPicker::make('hero.backgroundImage.src')
+                                        ->collection('page-hero-images')
                                         ->label('Background image source')
+                                        ->single()
                                         ->columnSpanFull(),
                                 ]),
                         ])

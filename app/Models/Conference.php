@@ -4,12 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
-use TomatoPHP\FilamentMediaManager\Traits\InteractsWithMediaFolders;
+use TomatoPHP\FilamentMediaManager\Traits\InteractsWithMediaManager;
 
 class Conference extends Model
 {
-    use InteractsWithMediaFolders;
+    use InteractsWithMediaManager;
 
     protected $fillable = [
         'full_name',
@@ -44,23 +43,10 @@ class Conference extends Model
         );
     }
 
-    public function downloadableUrl(): Attribute
+    protected function downloadableUrl(): Attribute
     {
-        return Attribute::get(
-            fn() => $this->downloadables ? Storage::disk('s3')->temporaryUrl($this->downloadables, now()->addMinutes(10)) : null
+        return Attribute::make(
+            get: fn() => $this->getMediaManagerUrl('conference-downloadables')
         );
-    }
-
-    public function registerMediaCollections(): void
-    {
-        $this
-            ->addMediaCollection('conferences')
-            ->acceptsMimeTypes([
-                'image/jpeg',
-                'image/png',
-                'image/webp',
-                'image/gif',
-                'image/svg+xml',
-            ]);
     }
 }
