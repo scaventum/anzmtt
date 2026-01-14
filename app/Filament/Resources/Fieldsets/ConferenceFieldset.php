@@ -5,13 +5,13 @@ namespace App\Filament\Resources\Fieldsets;
 
 use App\Models\Page;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Fieldset;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
-use Filament\Forms\Get;
+use Filament\Schemas\Components\Fieldset;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Utilities\Get;
+use TomatoPHP\FilamentMediaManager\Form\MediaManagerPicker;
 
 class ConferenceFieldset
 {
@@ -21,27 +21,29 @@ class ConferenceFieldset
       ->relationship('conference')
       ->visible(fn(Get $get) => $get('type') === Page::TYPE_CONFERENCES)
       ->schema([
-        Grid::make(2)->schema([
-          TextInput::make('full_name')
-            ->label('Conference Name')
-            ->columnSpanFull(),
+        Grid::make(2)->schema(
+          [
+            TextInput::make('full_name')
+              ->label('Conference Name')
+              ->columnSpanFull(),
 
-          TextInput::make('location'),
+            TextInput::make('location'),
 
-          TextInput::make('cost'),
+            TextInput::make('cost'),
 
-          DatePicker::make('date_from')
-            ->label('Start Date'),
+            DatePicker::make('date_from')
+              ->label('Start Date'),
 
-          DatePicker::make('date_to')
-            ->label('End Date'),
+            DatePicker::make('date_to')
+              ->label('End Date'),
 
-          TimePicker::make('time_from')
-            ->label('Start Time'),
+            TimePicker::make('time_from')
+              ->label('Start Time'),
 
-          TimePicker::make('time_to')
-            ->label('End Time'),
-        ]),
+            TimePicker::make('time_to')
+              ->label('End Time'),
+          ]
+        )->columnSpanFull(),
 
         RichEditor::make('information')
           ->required()
@@ -55,17 +57,9 @@ class ConferenceFieldset
           ->url()
           ->columnSpanFull(),
 
-        // SpatieMediaLibraryFileUpload::make('downloadables')
-        //   ->disk(config('filesystems.default'))
-        //   ->collection('conference-downloadables')
-        //   ->preserveFilenames()
-        //   ->maxSize(20480)
-        //   ->columnSpanFull(),
-
-        //       MediaManagerPicker::make('media')
-        // ->multiple()
-        // ->collection('products')
-        // ->responsiveImages();
+        MediaManagerPicker::make('downloadables')
+          ->collection('conference-downloadables')
+          ->columnSpanFull()
       ]);
   }
 }

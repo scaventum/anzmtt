@@ -55,6 +55,12 @@ class Conference extends Model
     {
         $this
             ->addMediaCollection('conferences')
-            ->useDisk('s3');
+            ->acceptsMimeTypes([
+                'image/jpeg',
+                'image/png',
+                'image/webp',
+                'image/gif',
+                'image/svg+xml',
+            ]);
     }
 }

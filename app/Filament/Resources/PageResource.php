@@ -24,15 +24,14 @@ use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -40,6 +39,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
+use TomatoPHP\FilamentMediaManager\Form\MediaManagerPicker;
 
 class PageResource extends Resource
 {
@@ -50,7 +50,9 @@ class PageResource extends Resource
     public static function form(Schema $form): Schema
     {
         return $form->schema([
-            Grid::make()
+            Grid::make([
+                'lg' => 3
+            ])
                 ->schema([
                     Section::make('General')
                         ->schema([
@@ -157,17 +159,14 @@ class PageResource extends Resource
                                         ->label('CTA link label')
                                         ->maxLength(255),
 
-                                    FileUpload::make('hero.backgroundImage.src')
+
+                                    MediaManagerPicker::make('hero.backgroundImage.src')
                                         ->label('Background image source')
-                                        ->image()
-                                        ->columnSpanFull()
-                                        ->maxSize(2048)
-                                        ->directory('hero')
+                                        ->columnSpanFull(),
                                 ]),
                         ])
                         ->columnSpan(['lg' => 1]),
-                ])
-                ->columns(['lg' => 3]),
+                ])->columnSpanFull()
         ]);
     }
 
