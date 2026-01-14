@@ -43,6 +43,8 @@ class Member extends Model
         'avatar'
     ];
 
+    protected $appends = ['avatar_url'];
+
     /**
      * Get the attributes that should be cast.
      *
