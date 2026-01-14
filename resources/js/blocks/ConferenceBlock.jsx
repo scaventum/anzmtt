@@ -141,8 +141,8 @@ export default function Conference({ conference, t = defaultTheme }) {
                 )}
 
                 {/* CTA */}
-                {conference.call_for_abstract_link && (
-                    <div className="flex gap-2">
+                <div className="flex gap-2">
+                    {conference.call_for_abstract_link && (
                         <a
                             href={conference.call_for_abstract_link}
                             target="_blank"
@@ -162,6 +162,8 @@ export default function Conference({ conference, t = defaultTheme }) {
                         >
                             Call for abstract
                         </a>
+                    )}
+                    {conference.registration_link && (
                         <a
                             href={conference.registration_link}
                             target="_blank"
@@ -181,8 +183,8 @@ export default function Conference({ conference, t = defaultTheme }) {
                         >
                             Register here
                         </a>
-                    </div>
-                )}
+                    )}
+                </div>
             </div>
         </section>
     );
