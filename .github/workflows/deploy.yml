@@ -1,15 +1,17 @@
-name: Deploy anzmtt-uat
+name: Deploy anzmtt
 
 on:
   push:
     branches:
       - uat
+      - main
 
 jobs:
   deploy:
-    name: Deploy to UAT
+    name: Deploy (${{ github.ref_name }})
     runs-on: ubuntu-latest
-    environment: uat
+    # Environment by branch
+    environment: ${{ github.ref_name == 'main' && 'prod' || 'uat' }}
 
     steps:
       # 1. Checkout repository
