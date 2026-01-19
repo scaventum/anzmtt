@@ -4,6 +4,7 @@ import UnorderedListBlock from "@blocks/UnorderedListBlock";
 import NewsBlock from "@blocks/NewsBlock";
 import QuoteBlock from "@blocks/QuoteBlock";
 import ContactBlock from "@blocks/ContactBlock";
+import ContactFormBlock from "@blocks/ContactFormBlock";
 import AccordionBlock from "@blocks/AccordionBlock";
 import ExecutiveCommitteeBlock from "@blocks/ExecutiveCommitteeBlock";
 import AdvisoryBoardBlock from "@blocks/AdvisoryBoardBlock";
@@ -20,6 +21,7 @@ const BLOCK_COMPONENTS = {
     news: NewsBlock,
     quote: QuoteBlock,
     contact: ContactBlock,
+    contactForm: ContactFormBlock,
     accordion: AccordionBlock,
     richEditor: RichEditorBlock,
     executiveCommittee: ExecutiveCommitteeBlock,

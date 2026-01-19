@@ -7,6 +7,7 @@ use App\Filament\Resources\Blocks\AdvisoryBoardBlock;
 use App\Filament\Resources\Blocks\CallForPapersPagesBlock;
 use App\Filament\Resources\Blocks\ConferencesBlock;
 use App\Filament\Resources\Blocks\ContactBlock;
+use App\Filament\Resources\Blocks\ContactFormBlock;
 use App\Filament\Resources\Blocks\ExecutiveCommitteeBlock;
 use App\Filament\Resources\Blocks\MemberDirectoryBlock;
 use App\Filament\Resources\Blocks\NewsBlock;
@@ -101,6 +102,7 @@ class PageResource extends Resource
                                             CallForPapersPagesBlock::make(),
                                             QuoteBlock::make(),
                                             ContactBlock::make(),
+                                            ContactFormBlock::make(),
                                             AccordionBlock::make(),
                                             RichEditorBlock::make(),
                                             ExecutiveCommitteeBlock::make(),

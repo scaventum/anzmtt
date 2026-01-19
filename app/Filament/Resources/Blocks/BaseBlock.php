@@ -13,7 +13,7 @@ class BaseBlock
         ->options([
           'dark' => 'Dark',
           'light' => 'Light',
-        ])
+        ])->default('light')
         ->placeholder('Neutral')
     ];
   }
