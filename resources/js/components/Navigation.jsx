@@ -46,7 +46,7 @@ export default function Navigation({
                             }}
                             className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
                                 isActiveItem
-                                    ? `${theme.text.light} ${theme.bg.primary}`
+                                    ? `${theme.text.primary} ${theme.bg.secondary}`
                                     : `${theme.text.default} ${theme.text.hover} ${theme.bg.hover}`
                             }`}
                         >
@@ -76,7 +76,7 @@ export default function Navigation({
                             <div className="ml-4 space-y-1 border-l border-gray-200 pl-2">
                                 {item.submenu.map((subItem, subIndex) => {
                                     const isSubActive = isActive(
-                                        `/${subItem.path}`
+                                        `/${subItem.path}`,
                                     );
 
                                     return (
@@ -85,7 +85,7 @@ export default function Navigation({
                                             href={`/${subItem.path}`}
                                             className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
                                                 isSubActive
-                                                    ? `${theme.text.light} ${theme.bg.primary}`
+                                                    ? `${theme.text.primary} ${theme.bg.secondary}`
                                                     : `${theme.text.default} ${theme.text.hover} ${theme.bg.hover}`
                                             }`}
                                             onClick={() => {
@@ -111,7 +111,7 @@ export default function Navigation({
                         href={`/${item.path}`}
                         className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                             isActiveItem
-                                ? `${theme.text.light} ${theme.bg.primary}`
+                                ? `${theme.text.primary} ${theme.bg.secondary}`
                                 : `${theme.text.default} ${theme.text.hover} ${theme.bg.hover}`
                         }`}
                     >
@@ -138,7 +138,7 @@ export default function Navigation({
                             <div className="w-48 bg-white rounded-md shadow-lg py-1 border border-gray-100">
                                 {item.submenu.map((subItem, subIndex) => {
                                     const isSubActive = isActive(
-                                        `/${subItem.path}`
+                                        `/${subItem.path}`,
                                     );
 
                                     return (
@@ -147,7 +147,7 @@ export default function Navigation({
                                             href={`/${subItem.path}`}
                                             className={`block px-4 py-2 text-sm ${
                                                 isSubActive
-                                                    ? `${theme.text.light} ${theme.bg.primary}`
+                                                    ? `${theme.text.primary} ${theme.bg.secondary}`
                                                     : `${theme.text.default} ${theme.text.hover} ${theme.bg.hover}`
                                             }`}
                                         >
@@ -217,8 +217,27 @@ export default function Navigation({
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center space-x-1">
                         {menu.map((item, index) =>
-                            renderMenuItem(item, index, false)
+                            renderMenuItem(item, index, false),
                         )}
+
+                        {/* Contact button */}
+                        <Link
+                            href="/contact"
+                            className={`
+                                ml-2 inline-flex items-center
+                                px-4 py-2
+                                text-sm font-medium
+                                rounded-md
+                                border
+                                ${theme.text.light}
+                                border-current
+                                ${theme.bg.primary}
+                                ${theme.bg.hover}
+                                transition
+                            `}
+                        >
+                            Contact
+                        </Link>
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -270,8 +289,27 @@ export default function Navigation({
             >
                 <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t">
                     {menu.map((item, index) =>
-                        renderMenuItem(item, index, true)
+                        renderMenuItem(item, index, true),
                     )}
+
+                    {/* Mobile contact button */}
+                    <Link
+                        href="/contact"
+                        className={`
+                            block mt-3 px-4 py-2
+                            text-base font-medium
+                            text-center
+                            rounded-md
+                            ${theme.text.light}
+                            border-current
+                            ${theme.bg.primary}
+                            ${theme.bg.hover}
+                            transition
+                        `}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                        Contact
+                    </Link>
                 </div>
             </div>
         </nav>

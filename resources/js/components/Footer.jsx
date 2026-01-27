@@ -58,6 +58,18 @@ export default function Footer({ menu = [], meta, theme = defaultTheme }) {
                 {/* Copyright */}
                 <div className={`mt-8 pt-8 border-t border-gray-800`}>
                     <p
+                        className={`${theme.text.light} text-sm ${theme.fontFamily.body} mb-2`}
+                    >
+                        Contact us:{" "}
+                        <a
+                            href="mailto:info@anzmtt.org"
+                            className="text-white hover:text-gray-300 underline"
+                        >
+                            info@anzmtt.org
+                        </a>
+                    </p>
+
+                    <p
                         className={`${theme.text.light} text-sm ${theme.fontFamily.body}`}
                     >
                         {`© ${new Date().getFullYear()} ${navTitle}. All rights reserved.`}
