@@ -15,6 +15,7 @@ class NavigationRepository
     // Get top-level items sorted by sort_order, with children eager loaded
     $items = NavigationItem::with(['page', 'children.page'])
       ->whereNull('parent_id')
+      ->whereRelation('page', 'published', true)
       ->orderBy('sort_order')
       ->get();
 
