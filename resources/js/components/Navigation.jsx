@@ -192,26 +192,13 @@ export default function Navigation({
                         {/* Logo Image */}
                         <Link href="/" className="flex-shrink-0">
                             <img
-                                src="/images/logoipsum.png"
+                                src="/images/icon-landscape.png"
                                 alt="Logo"
-                                width={40}
+                                width={200}
                                 height={40}
                                 className="object-contain"
                             />
                         </Link>
-
-                        {/* Logo Text */}
-                        <div className="leading-tight">
-                            <Link
-                                href="/"
-                                className={`text-xl font-bold ${theme.text.primary}`}
-                            >
-                                {navTitle}
-                            </Link>
-                            {navSubtitle && (
-                                <div className="text-xs">{navSubtitle}</div>
-                            )}
-                        </div>
                     </div>
 
                     {/* Desktop Navigation */}
