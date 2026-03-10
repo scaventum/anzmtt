@@ -46,6 +46,9 @@ class ConferenceFieldset
         )->columnSpanFull(),
 
         RichEditor::make('information')
+          ->fileAttachmentsDisk(config('filesystems.default'))
+          ->fileAttachmentsDirectory('attachments')
+          ->fileAttachmentsVisibility('public')
           ->required()
           ->columnSpanFull(),
 
