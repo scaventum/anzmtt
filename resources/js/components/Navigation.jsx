@@ -192,9 +192,9 @@ export default function Navigation({
                         {/* Logo Image */}
                         <Link href="/" className="flex-shrink-0">
                             <img
-                                src="/images/icon-landscape.png"
+                                src="/images/icon-with-caption-landscape.png"
                                 alt="Logo"
-                                width={200}
+                                width={300}
                                 height={40}
                                 className="object-contain"
                             />

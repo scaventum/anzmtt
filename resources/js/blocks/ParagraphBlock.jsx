@@ -10,9 +10,9 @@ export default function ParagraphBlock({ data, theme = defaultTheme }) {
             {logo && (
                 <div className="flex-shrink-0">
                     <img
-                        src="/images/icon-no-caption.png"
+                        src="/images/icon-with-caption.png"
                         alt="logo"
-                        className="h-50"
+                        className="h-50 object-contain"
                     />
                 </div>
             )}
