@@ -61,8 +61,8 @@ class MemberResource extends Resource
                     ->helperText('A member can have none or multiple types.'),
 
                 Textarea::make('interests')
-                    ->label('Interests')
-                    ->helperText('Enter one interest per line')
+                    ->label('Clusters')
+                    ->helperText('Enter one cluster per line')
                     ->rows(4)
                     ->afterStateHydrated(
                         fn($component, $state) =>

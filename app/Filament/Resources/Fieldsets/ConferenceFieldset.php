@@ -46,7 +46,6 @@ class ConferenceFieldset
         )->columnSpanFull(),
 
         RichEditor::make('information')
-          ->disableToolbarButtons(['attachFiles'])
           ->required()
           ->columnSpanFull(),
 

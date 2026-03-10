@@ -30,8 +30,8 @@ export default function MemberDirectoryBlock({
                     `${a.first_name} ${a.last_name}`.localeCompare(
                         `${b.first_name} ${b.last_name}`,
                         undefined,
-                        { sensitivity: "base" }
-                    )
+                        { sensitivity: "base" },
+                    ),
                 );
 
             case "name-desc":
@@ -39,22 +39,22 @@ export default function MemberDirectoryBlock({
                     `${b.first_name} ${b.last_name}`.localeCompare(
                         `${a.first_name} ${a.last_name}`,
                         undefined,
-                        { sensitivity: "base" }
-                    )
+                        { sensitivity: "base" },
+                    ),
                 );
 
             case "last-active-newest":
                 return copy.sort(
                     (a, b) =>
                         new Date(b.last_active_at || 0) -
-                        new Date(a.last_active_at || 0)
+                        new Date(a.last_active_at || 0),
                 );
 
             case "last-active-oldest":
                 return copy.sort(
                     (a, b) =>
                         new Date(a.last_active_at || 0) -
-                        new Date(b.last_active_at || 0)
+                        new Date(b.last_active_at || 0),
                 );
 
             default:
@@ -115,7 +115,7 @@ export default function MemberDirectoryBlock({
                     const avatar = member.avatar_url
                         ? member.avatar_url
                         : `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                              `${member.first_name} ${member.last_name}`
+                              `${member.first_name} ${member.last_name}`,
                           )}&background=ddd&color=555&rounded=true&size=128`;
 
                     return (
@@ -162,12 +162,12 @@ export default function MemberDirectoryBlock({
                                 </p>
                             )}
 
-                            {/* Interests */}
+                            {/* Clusters */}
                             {member.interests &&
                                 member.interests.length > 0 && (
                                     <div className="pt-2">
                                         <h4 className="text-sm font-semibold text-gray-700 mb-1">
-                                            Interests:
+                                            Clusters:
                                         </h4>
                                         <ul className="list-disc list-inside text-sm text-gray-700 space-y-1">
                                             {member.interests.map(
@@ -175,7 +175,7 @@ export default function MemberDirectoryBlock({
                                                     <li key={index}>
                                                         {interest}
                                                     </li>
-                                                )
+                                                ),
                                             )}
                                         </ul>
                                     </div>
@@ -198,7 +198,7 @@ export default function MemberDirectoryBlock({
                                 <p className="text-xs text-gray-500 pt-1">
                                     Last active:{" "}
                                     {new Date(
-                                        member.last_active_at
+                                        member.last_active_at,
                                     ).toLocaleDateString(undefined, {
                                         year: "numeric",
                                         month: "short",

@@ -43,7 +43,6 @@ class CallForPapersFieldset
 
         RichEditor::make('information')
           ->required()
-          ->disableToolbarButtons(['attachFiles'])
           ->columnSpanFull(),
 
         TextInput::make('information_link')
