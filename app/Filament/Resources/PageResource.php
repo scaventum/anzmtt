@@ -162,11 +162,11 @@ class PageResource extends Resource
                                         ->maxLength(255),
 
 
-                                    MediaManagerPicker::make('hero.backgroundImage.src')
+                                    MediaManagerPicker::make('heroBackgroundImageSrc')
                                         ->collection('page-hero-images')
                                         ->label('Background image source')
                                         ->single()
-                                        ->columnSpanFull(),
+                                        ->columnSpanFull()
                                 ]),
                         ])
                         ->columnSpan(['lg' => 1]),
