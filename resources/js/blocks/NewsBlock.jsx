@@ -49,7 +49,7 @@ export default function NewsBlock({
                             <div
                                 className={`h-48 w-full bg-cover bg-center transition-transform duration-300 group-hover:scale-105  ${theme.bg.secondary} `}
                                 style={{
-                                    backgroundImage: `url(/storage/${backgroundImage})`,
+                                    backgroundImage: `url(${backgroundImage})`,
                                 }}
                             />
 

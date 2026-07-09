@@ -85,7 +85,7 @@ export default function CallForPapersPagesBlock({
                                 `}
                                 style={{
                                     backgroundImage: backgroundImage
-                                        ? `url(/storage/${backgroundImage})`
+                                        ? `url(${backgroundImage})`
                                         : undefined,
                                 }}
                             />
